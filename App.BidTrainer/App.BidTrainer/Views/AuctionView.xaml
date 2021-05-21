@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:App.BidTrainer.ViewModels" 
+             x:Class="App.BidTrainer.Views.AuctionView">
+    <ContentView.BindingContext>
+        <viewmodels:AuctionViewModel/>
+    </ContentView.BindingContext>
+  <ContentView.Content>
+      <StackLayout>
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Auction.bids.Values}" BackgroundColor="Green">
+                <CollectionView.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="West" FontSize="Micro" FontAttributes="Bold" HeightRequest="25"/>
+                        <Label Text="North" FontSize="Micro" FontAttributes="Bold" HeightRequest="25"/>
+                        <Label Text="East" FontSize="Micro" FontAttributes="Bold" HeightRequest="25"/>
+                        <Label Text="South" FontSize="Micro" FontAttributes="Bold" HeightRequest="25"/>
+                    </StackLayout>
+                </CollectionView.Header> 
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <CollectionView ItemsSource="{Binding}" HeightRequest="25">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                                        <Label Text="{Binding Value}" FontSize="Micro" WidthRequest="30"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>                            
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal"/>
+                            </CollectionView.ItemsLayout>
+                        </CollectionView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

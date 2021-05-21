@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.BidTrainer.Views.BidTrainerPage"
+             xmlns:views="clr-namespace:App.BidTrainer.Views"
+             xmlns:local="clr-namespace:App.BidTrainer"
+             x:DataType="views:BidTrainerPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>            
+            
+            <StackLayout Grid.Row="0" BackgroundColor="Green">
+                <views:HandView x:Name="panelNorth"/>
+            </StackLayout>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="230"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" BackgroundColor="Green">
+                    <views:BiddingBoxView x:Name="BiddingBoxView"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1">
+                    <views:AuctionView x:Name="AuctionView"/>
+                </StackLayout>
+            </Grid>
+            <StackLayout Grid.Row="2" BackgroundColor="Green">
+                <views:HandView x:Name="panelSouth"/>
+            </StackLayout>
+            <StackLayout Grid.Row="3" Orientation="Horizontal">
+                <Button Text="NextBoard" Clicked="Button_Clicked_1"/>
+                <Button Text="Start" Clicked="Button_Clicked"/>
+            </StackLayout>
+            <StackLayout Grid.Row="4" >
+                <Label x:Name="StatusLabel"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

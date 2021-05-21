@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.BidTrainer.Views.HandView"
+             xmlns:imgcrop="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.ImageCropView"            
+             xmlns:viewModels="clr-namespace:App.BidTrainer.ViewModels" 
+             x:DataType="viewModels:HandViewModel">
+      <StackLayout>
+            <ListView ItemsSource="{Binding Cards}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <AbsoluteLayout>
+                            <imgcrop:ImageCropView HeightRequest="73" WidthRequest="97" x:Name="cropView" AnchorX="{Binding Index}"
+                                    Source="cardfaces.png" ManualOffsetX="0" ManualOffsetY="0">
+                            </imgcrop:ImageCropView>
+                            <!--<Image AnchorX="{Binding Index}">
+                                <Image.Source>
+                                    <CroppedBitmap Source="cardfaces.png" SourceRect="{Binding Converter={StaticResource CardToImageRectConverter}}"/>
+                                </Image.Source>
+                            </Image>-->
+                        </AbsoluteLayout>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+</Grid>

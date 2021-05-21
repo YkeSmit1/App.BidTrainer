@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "App.BidTrainer": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
