@@ -12,8 +12,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(FileAccessHelper))]
 namespace App.BidTrainer.Droid
@@ -23,7 +21,7 @@ namespace App.BidTrainer.Droid
         public string GetDataPath()
         {
             var docFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            using (var assets = Forms.Context.Assets)
+            using (var assets = Application.Context.Assets)
             {
                 foreach (var file in assets.List("data"))
                 {

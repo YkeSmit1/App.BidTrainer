@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
 using MvvmHelpers.Commands;
+using Xamarin.Essentials;
 
 namespace App.BidTrainer.Views
 {
@@ -28,18 +29,28 @@ namespace App.BidTrainer.Views
         }
 
         private string dataPath;
+        private readonly StartPage startPage = new StartPage();
+
         // Bidding
         private readonly BidManager bidManager = new BidManager();
         private readonly Auction auction = new Auction();
         private readonly Pbn pbn = new Pbn();
 
         // Lesson
-        //private static int CurrentBoardIndex => Settings1.Default.CurrentBoardIndex;
-        public int CurrentBoardIndex { get; set; }
+        private static int CurrentLesson
+        {
+            get => Preferences.Get(nameof(CurrentLesson), 2);
+            set => Preferences.Set(nameof(CurrentLesson), value);
+        }
+        private static int CurrentBoardIndex
+        {
+            get => Preferences.Get(nameof(CurrentBoardIndex), 0);
+            set => Preferences.Set(nameof(CurrentBoardIndex), value);
+        }
         private Dictionary<Player, string> Deal => pbn.Boards[CurrentBoardIndex].Deal;
         private Player Dealer => pbn.Boards[CurrentBoardIndex].Dealer;
-        private Lesson lesson;
         private List<Lesson> lessons;
+        private Lesson Lesson => lessons.Single(l => l.LessonNr == CurrentLesson);
 
         // Results
         private Result currentResult;
@@ -63,22 +74,23 @@ namespace App.BidTrainer.Views
 
         private async Task Start()
         {
-            LogManager.Configuration = new XmlLoggingConfiguration("assets/nlog.config");
-            //MenuUseAlternateSuits.IsChecked = Settings1.Default.AlternateSuits;
             try
             {
+                LogManager.Configuration = new XmlLoggingConfiguration("assets/nlog.config");
+                Application.Current.ModalPopping += PopModel;
+
                 dataPath = DependencyService.Get<IFileAccessHelper>().GetDataPath();
 
                 string lessonsFileName = Path.Combine(dataPath, "lessons.json");
                 lessons = JsonConvert.DeserializeObject<List<Lesson>>(File.ReadAllText(lessonsFileName));
 
-                BiddingBoxViewModel.DoBid = new AsyncCommand<object>(ClickBiddingBoxButtonAsync, ButtonCanExecute);
+                BiddingBoxViewModel.DoBid = new AsyncCommand<object>(ClickBiddingBoxButton, ButtonCanExecute);
                 AuctionViewModel.Auction = auction;
                 string resultsFileName = Path.Combine(dataPath, "results.json");
                 if (File.Exists(resultsFileName))
                     results = JsonConvert.DeserializeObject<Results>(File.ReadAllText(resultsFileName));
 
-                await StartLessonAsync();
+                await StartLesson();
             }
             catch (Exception e)
             {
@@ -88,23 +100,21 @@ namespace App.BidTrainer.Views
             }
         }
 
-        public async Task StartLessonAsync()
+        public async Task StartLesson()
         {
-            //var startPage = new StartPage();
-            //startPage.ShowDialog();
-            //lessons = startPage.Lessons;
-            //if (!startPage.IsContinueWhereLeftOff)
-            //    /*Settings1.Default.*/CurrentBoardIndex = 0;
-            //lesson = startPage.Lesson;
-            lesson = lessons[0];
-            pbn.Load(Path.Combine(dataPath, lesson.PbnFile));
-            //if (!startPage.IsContinueWhereLeftOff)
-            //    results.AllResults.Remove(lesson.LessonNr);
-
-            await StartNextBoardAsync();
+            await Application.Current.MainPage.Navigation.PushModalAsync(startPage);
         }
 
-        private async Task ClickBiddingBoxButtonAsync(object parameter)
+        private async void PopModel(object sender, ModalPoppingEventArgs e)
+        {
+            if (e.Modal == startPage)
+            {
+                pbn.Load(Path.Combine(dataPath, Lesson.PbnFile));
+                await StartNextBoard();
+            }
+        }
+
+        private async Task ClickBiddingBoxButton(object parameter)
         {
             var bid = (Bid)parameter;
             //if (Cursor == Cursors.Help)
@@ -124,7 +134,7 @@ namespace App.BidTrainer.Views
                     currentResult.AnsweredCorrectly = false;
                 }
 
-                await BidTillSouthAsync();
+                await BidTillSouth();
             }
         }
 
@@ -141,24 +151,24 @@ namespace App.BidTrainer.Views
             BiddingBoxViewModel.DoBid.RaiseCanExecuteChanged();
         }
 
-        private async Task StartNextBoardAsync()
+        private async Task StartNextBoard()
         {
             panelNorth.IsVisible = false;
             BiddingBoxView.IsEnabled = true;
             if (CurrentBoardIndex > pbn.Boards.Count - 1)
             {
-                var newLessons = lessons.Where(x => x.LessonNr == lesson.LessonNr + 1);
-                if (newLessons.Any())
+                CurrentBoardIndex = 0;
+
+                if (Lesson.LessonNr != lessons.Last().LessonNr)
                 {
-                    lesson = newLessons.Single();
-                    pbn.Load(Path.Combine(dataPath, lesson.PbnFile));
-                    /*Settings1.Default.*/
-                    CurrentBoardIndex = 0;
+                    CurrentLesson++;
+                    pbn.Load(Path.Combine(dataPath, Lesson.PbnFile));
                 }
                 else
                 {
                     BiddingBoxView.IsEnabled = false;
                     await DisplayAlert("Info", "End of lessons", "OK");
+                    CurrentLesson = 2;
                     //ShowReport();
                     return;
                 }
@@ -173,19 +183,20 @@ namespace App.BidTrainer.Views
             AuctionViewModel.UpdateAuction(auction);
             BiddingBoxViewModel.DoBid.RaiseCanExecuteChanged();
             bidManager.Init();
-            StatusLabel.Text = $"Lesson: {lesson.LessonNr} Board: {CurrentBoardIndex + 1}";
+            StatusLabel.Text = $"Lesson: {Lesson.LessonNr} Board: {CurrentBoardIndex + 1}";
             startTimeBoard = DateTime.Now;
             currentResult = new Result();
-            await BidTillSouthAsync();
+            await BidTillSouth();
         }
 
         private void ShowBothHands()
         {
-            HandViewModelNorth.ShowHand(Deal[Player.North], /*MenuUseAlternateSuits.IsChecked*/true);
-            HandViewModelSouth.ShowHand(Deal[Player.South], /*MenuUseAlternateSuits.IsChecked*/true);
+            var alternateSuits = Preferences.Get("AlternateSuits", true);
+            HandViewModelNorth.ShowHand(Deal[Player.North], alternateSuits);
+            HandViewModelSouth.ShowHand(Deal[Player.South], alternateSuits);
         }
 
-        private async Task BidTillSouthAsync()
+        private async Task BidTillSouth()
         {
             while (auction.currentPlayer != Player.South && !auction.IsEndOfBidding())
             {
@@ -199,10 +210,9 @@ namespace App.BidTrainer.Views
                 panelNorth.IsVisible = true;
                 currentResult.TimeElapsed = DateTime.Now - startTimeBoard;
                 await DisplayAlert("Info", $"Hand is done. Contract:{auction.currentContract}", "OK");
-                results.AddResult(lesson.LessonNr, CurrentBoardIndex, currentResult);
-                /*Settings1.Default.*/
+                results.AddResult(Lesson.LessonNr, CurrentBoardIndex, currentResult);
                 CurrentBoardIndex++;
-                await StartNextBoardAsync();
+                await StartNextBoard();
             }
         }
 
@@ -214,7 +224,7 @@ namespace App.BidTrainer.Views
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
             CurrentBoardIndex++;
-            await StartNextBoardAsync();
+            await StartNextBoard();
         }
     }
 }

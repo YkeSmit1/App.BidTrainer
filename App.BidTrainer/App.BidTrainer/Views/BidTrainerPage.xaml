@@ -35,7 +35,7 @@
             </StackLayout>
             <StackLayout Grid.Row="3" Orientation="Horizontal">
                 <Button Text="NextBoard" Clicked="Button_Clicked_1"/>
-                <Button Text="Start" Clicked="Button_Clicked"/>
+                <Button Text="Pick Lesson" Clicked="Button_Clicked"/>
             </StackLayout>
             <StackLayout Grid.Row="4" >
                 <Label x:Name="StatusLabel"/>
