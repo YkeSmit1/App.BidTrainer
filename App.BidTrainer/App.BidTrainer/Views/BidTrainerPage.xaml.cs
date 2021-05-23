@@ -35,6 +35,7 @@ namespace App.BidTrainer.Views
         private readonly BidManager bidManager = new BidManager();
         private readonly Auction auction = new Auction();
         private readonly Pbn pbn = new Pbn();
+        private bool isInHintMode = false;
 
         // Lesson
         private static int CurrentLesson
@@ -110,6 +111,8 @@ namespace App.BidTrainer.Views
             if (e.Modal == startPage)
             {
                 pbn.Load(Path.Combine(dataPath, Lesson.PbnFile));
+                if (CurrentBoardIndex == 0)
+                    results.AllResults.Remove(Lesson.LessonNr);
                 await StartNextBoard();
             }
         }
@@ -117,13 +120,13 @@ namespace App.BidTrainer.Views
         private async Task ClickBiddingBoxButton(object parameter)
         {
             var bid = (Bid)parameter;
-            //if (Cursor == Cursors.Help)
-            //{
-            //    currentResult.UsedHint = true;
-            //    Cursor = Cursors.Arrow;
-            //    MessageBox.Show(bidManager.GetInformation(bid, auction.currentPosition), "Information");
-            //}
-            //else
+            if (isInHintMode)
+            {
+                currentResult.UsedHint = true;
+                isInHintMode = false;
+                await DisplayAlert("Information", bidManager.GetInformation(bid, auction.currentPosition), "OK");
+            }
+            else
             {
                 var engineBid = bidManager.GetBid(auction, Deal[Player.South]);
                 UpdateBidControls(engineBid);
@@ -173,10 +176,10 @@ namespace App.BidTrainer.Views
                     return;
                 }
             }
-            await StartBiddingAsync();
+            await StartBidding();
         }
 
-        private async Task StartBiddingAsync()
+        private async Task StartBidding()
         {
             ShowBothHands();
             auction.Clear(Dealer);
@@ -238,6 +241,11 @@ namespace App.BidTrainer.Views
         private void Button_Clicked_2(object sender, EventArgs e)
         {
             ShowReport();
+        }
+
+        private void Button_Clicked_3(object sender, EventArgs e)
+        {
+            isInHintMode = true;
         }
     }
 }
