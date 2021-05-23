@@ -15,24 +15,28 @@
         <viewmodels:StartViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid>
+        <Grid BackgroundColor="BlanchedAlmond">
             <Grid.RowDefinitions>
-                <RowDefinition Height="144"/>
+                <RowDefinition Height="170"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <CollectionView Grid.Row="0" ItemsSource="{Binding Lessons}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Button Text="{Binding Content}"
-                            Command="{Binding Path=BindingContext.StartLessonCommand,
-                                Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type CollectionView}}}" 
-                            CommandParameter="{Binding LessonNr}"/>
+                        <StackLayout>
+                            <Button Text="{Binding Content}"
+                                Command="{Binding Path=BindingContext.StartLessonCommand,
+                                    Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type CollectionView}}}" 
+                                CommandParameter="{Binding LessonNr}"/>
+                            <BoxView Color="Black" WidthRequest="100" HeightRequest="2"/>
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <StackLayout Grid.Row="1">
                 <Button Text="Continue where I left off" 
                         Command="{Binding ContinueWhereLeftOffCommand}" />
+                <BoxView Color="Black" WidthRequest="100" HeightRequest="2"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

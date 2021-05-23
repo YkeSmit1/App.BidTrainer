@@ -169,7 +169,7 @@ namespace App.BidTrainer.Views
                     BiddingBoxView.IsEnabled = false;
                     await DisplayAlert("Info", "End of lessons", "OK");
                     CurrentLesson = 2;
-                    //ShowReport();
+                    ShowReport();
                     return;
                 }
             }
@@ -212,8 +212,16 @@ namespace App.BidTrainer.Views
                 await DisplayAlert("Info", $"Hand is done. Contract:{auction.currentContract}", "OK");
                 results.AddResult(Lesson.LessonNr, CurrentBoardIndex, currentResult);
                 CurrentBoardIndex++;
+                File.WriteAllText(Path.Combine(dataPath, "results.json"), JsonConvert.SerializeObject(results, Formatting.Indented));
+
                 await StartNextBoard();
             }
+        }
+
+        private void ShowReport()
+        {
+            var resultsPage = new ResultsPage(results);
+            Application.Current.MainPage.Navigation.PushModalAsync(resultsPage);
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
@@ -225,6 +233,11 @@ namespace App.BidTrainer.Views
         {
             CurrentBoardIndex++;
             await StartNextBoard();
+        }
+
+        private void Button_Clicked_2(object sender, EventArgs e)
+        {
+            ShowReport();
         }
     }
 }
