@@ -3,20 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using Common;
-using EngineWrapper;
-using App.BidTrainer.ViewModels;
-using System.IO;
-using System.Reflection;
+using Xamarin.Essentials;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
 using MvvmHelpers.Commands;
-using Xamarin.Essentials;
+using Common;
+using EngineWrapper;
+using App.BidTrainer.ViewModels;
 
 namespace App.BidTrainer.Views
 {
@@ -28,7 +25,7 @@ namespace App.BidTrainer.Views
             string GetDataPath();
         }
 
-        private string dataPath = DependencyService.Get<IFileAccessHelper>().GetDataPath();
+        private readonly string dataPath = DependencyService.Get<IFileAccessHelper>().GetDataPath();
         private readonly StartPage startPage = new StartPage();
 
         // Bidding
@@ -70,15 +67,15 @@ namespace App.BidTrainer.Views
         public BidTrainerPage()
         {
             InitializeComponent();
-            LogManager.Configuration = new XmlLoggingConfiguration("assets/nlog.config");
-            Application.Current.ModalPopping += PopModel;
-            Start();
+            Task.Run(() => Start());
         }
 
         private async Task Start()
         {
             try
             {
+                LogManager.Configuration = new XmlLoggingConfiguration("assets/nlog.config");
+                Application.Current.ModalPopping += PopModel;
                 string lessonsFileName = Path.Combine(dataPath, "lessons.json");
                 lessons = JsonConvert.DeserializeObject<List<Lesson>>(File.ReadAllText(lessonsFileName));
                 BiddingBoxViewModel.DoBid = new AsyncCommand<object>(ClickBiddingBoxButton, ButtonCanExecute);
@@ -191,8 +188,8 @@ namespace App.BidTrainer.Views
         private void ShowBothHands()
         {
             var alternateSuits = Preferences.Get("AlternateSuits", true);
-            HandViewModelNorth.ShowHand(Deal[Player.North], alternateSuits);
-            HandViewModelSouth.ShowHand(Deal[Player.South], alternateSuits);
+            Task.Run(() => HandViewModelNorth.ShowHand(Deal[Player.North], alternateSuits));
+            Task.Run(() => HandViewModelSouth.ShowHand(Deal[Player.South], alternateSuits));
         }
 
         private async Task BidTillSouth()
