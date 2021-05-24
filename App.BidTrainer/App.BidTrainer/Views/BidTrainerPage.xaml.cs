@@ -28,7 +28,7 @@ namespace App.BidTrainer.Views
             string GetDataPath();
         }
 
-        private string dataPath;
+        private string dataPath = DependencyService.Get<IFileAccessHelper>().GetDataPath();
         private readonly StartPage startPage = new StartPage();
 
         // Bidding
@@ -70,6 +70,8 @@ namespace App.BidTrainer.Views
         public BidTrainerPage()
         {
             InitializeComponent();
+            LogManager.Configuration = new XmlLoggingConfiguration("assets/nlog.config");
+            Application.Current.ModalPopping += PopModel;
             Start();
         }
 
@@ -77,14 +79,8 @@ namespace App.BidTrainer.Views
         {
             try
             {
-                LogManager.Configuration = new XmlLoggingConfiguration("assets/nlog.config");
-                Application.Current.ModalPopping += PopModel;
-
-                dataPath = DependencyService.Get<IFileAccessHelper>().GetDataPath();
-
                 string lessonsFileName = Path.Combine(dataPath, "lessons.json");
                 lessons = JsonConvert.DeserializeObject<List<Lesson>>(File.ReadAllText(lessonsFileName));
-
                 BiddingBoxViewModel.DoBid = new AsyncCommand<object>(ClickBiddingBoxButton, ButtonCanExecute);
                 AuctionViewModel.Auction = auction;
                 string resultsFileName = Path.Combine(dataPath, "results.json");
@@ -229,7 +225,7 @@ namespace App.BidTrainer.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Start();
+            await StartLesson();
         }
 
         private async void Button_Clicked_1(object sender, EventArgs e)

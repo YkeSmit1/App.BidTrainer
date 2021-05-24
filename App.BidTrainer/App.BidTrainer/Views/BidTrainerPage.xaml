@@ -26,18 +26,18 @@
                 <StackLayout Grid.Column="0" BackgroundColor="Green">
                     <views:BiddingBoxView x:Name="BiddingBoxView"/>
                 </StackLayout>
-                <StackLayout Grid.Column="1">
+                <StackLayout Grid.Column="1" BackgroundColor="Green">
                     <views:AuctionView x:Name="AuctionView"/>
+                    <Button Text="Hint" Clicked="Button_Clicked_3" FontSize="Micro" HorizontalOptions="Center"/>
                 </StackLayout>
             </Grid>
             <StackLayout Grid.Row="2" BackgroundColor="Green">
                 <views:HandView x:Name="panelSouth"/>
             </StackLayout>
             <StackLayout Grid.Row="3" Orientation="Horizontal">
-                <Button Text="NextBoard" Clicked="Button_Clicked_1"/>
-                <Button Text="Pick Lesson" Clicked="Button_Clicked"/>
-                <Button Text="Results" Clicked="Button_Clicked_2"/>
-                <Button Text="Hint" Clicked="Button_Clicked_3"/>
+                <Button Text="NextBoard" Clicked="Button_Clicked_1" FontSize="Micro"/>
+                <Button Text="Select Lesson" Clicked="Button_Clicked" FontSize="Micro"/>
+                <Button Text="Results" Clicked="Button_Clicked_2" FontSize="Micro"/>
             </StackLayout>
             <StackLayout Grid.Row="4" >
                 <Label x:Name="StatusLabel"/>
