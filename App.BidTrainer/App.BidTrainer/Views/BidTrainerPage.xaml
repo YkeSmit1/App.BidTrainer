@@ -4,21 +4,40 @@
              x:Class="App.BidTrainer.Views.BidTrainerPage"
              xmlns:views="clr-namespace:App.BidTrainer.Views"
              xmlns:local="clr-namespace:App.BidTrainer"
-             x:DataType="views:BidTrainerPage">
+             x:DataType="views:BidTrainerPage"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <Style TargetType="Button" x:Key="ToolbarButton">
+            <Setter Property="FontSize" Value="8"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="Background" Value="white"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="WidthRequest" Value="75"/>
+            <Setter Property="HeightRequest" Value="65"/>
+            <Setter Property="ContentLayout" Value="Top,0"/>
+            <Setter Property="TextTransform" Value="None"/>
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="100"/>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="100"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="20"/>
-            </Grid.RowDefinitions>            
-            
-            <StackLayout Grid.Row="0" BackgroundColor="Green">
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" >
+                <Label x:Name="StatusLabel" FontSize="Micro" Padding="10"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" BackgroundColor="Green">
                 <views:HandView x:Name="panelNorth"/>
             </StackLayout>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="230"/>
                     <ColumnDefinition Width="*"/>
@@ -28,19 +47,19 @@
                 </StackLayout>
                 <StackLayout Grid.Column="1" BackgroundColor="Green">
                     <views:AuctionView x:Name="AuctionView"/>
-                    <Button Text="Hint" Clicked="Button_Clicked_3" FontSize="Micro" HorizontalOptions="Center"/>
+                    <Button Text="Hint" Clicked="Button_Clicked_3" FontSize="Micro" 
+                            HorizontalOptions="Center" WidthRequest="50" HeightRequest="30" Margin="5" CornerRadius="10"/>
                 </StackLayout>
             </Grid>
-            <StackLayout Grid.Row="2" BackgroundColor="Green">
+            <StackLayout Grid.Row="3" BackgroundColor="Green">
                 <views:HandView x:Name="panelSouth"/>
             </StackLayout>
-            <StackLayout Grid.Row="3" Orientation="Horizontal">
-                <Button Text="NextBoard" Clicked="Button_Clicked_1" FontSize="Micro"/>
-                <Button Text="Select Lesson" Clicked="Button_Clicked" FontSize="Micro"/>
-                <Button Text="Results" Clicked="Button_Clicked_2" FontSize="Micro"/>
-            </StackLayout>
-            <StackLayout Grid.Row="4" >
-                <Label x:Name="StatusLabel"/>
+            <StackLayout Grid.Row="5" Orientation="Horizontal">
+                <Button Text="NextBoard" Clicked="Button_Clicked_1" ImageSource="icons8_next_32.png" Style="{StaticResource Key=ToolbarButton}"/>
+                <Button Text="Lesson" Clicked="Button_Clicked" ImageSource="icons8_flashcards_32.png" Style="{StaticResource Key=ToolbarButton}"/>
+                <Button Text="Results" Clicked="Button_Clicked_2" ImageSource="icons8_regular_document_32.png" Style="{StaticResource Key=ToolbarButton}"/>
+                <Button Text="Leaderboard" Clicked="Button_Clicked_4" ImageSource="icons8_leaderboard_32.png" Style="{StaticResource Key=ToolbarButton}"/>
+                <Button Text="Settings" Clicked="Button_Clicked_5" ImageSource="icons8_settings_32.png" Style="{StaticResource Key=ToolbarButton}"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

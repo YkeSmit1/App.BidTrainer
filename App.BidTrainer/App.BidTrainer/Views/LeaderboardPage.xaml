@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:views="clr-namespace:App.BidTrainer.Views" 
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             x:Class="App.BidTrainer.Views.LeaderboardPage">
+    <ContentPage.BindingContext>
+        <views:LeaderboardViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <dg:DataGrid ItemsSource="{Binding Accounts}" 
+                         RowHeight="70" HeaderHeight="50" 
+                         BorderColor="#CCCCCC" HeaderBackground="#E0E6F8"
+                         HeaderFontSize="11"
+                         FontSize="9">
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="Name" PropertyName="username" HorizontalContentAlignment="Start" />
+                    <dg:DataGridColumn Title="Boards played" PropertyName="numberOfBoardsPlayed" HorizontalContentAlignment="End"/>
+                    <dg:DataGridColumn Title="Correct boards" PropertyName="numberOfCorrectBoards" HorizontalContentAlignment="End"/>
+                    <dg:DataGridColumn Title="Time spent" PropertyName="timeElapsed" StringFormat="'{0:h\:mm\:ss}'" HorizontalContentAlignment="End"/>
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

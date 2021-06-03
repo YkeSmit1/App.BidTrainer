@@ -9,18 +9,13 @@ using App.BidTrainer.ViewModels;
 
 namespace App.BidTrainer.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ResultsPage : ContentPage
-	{
-		public ResultsPage (Results results)
-		{
-			InitializeComponent ();
-			((ResultsViewModel)BindingContext).Results = results;
-		}
-
-        private void Button_Clicked(object sender, EventArgs e)
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ResultsPage : ContentPage
+    {
+        public ResultsPage(Results results)
         {
-			Application.Current.MainPage.Navigation.PopModalAsync();
+            InitializeComponent();
+            ((ResultsViewModel)BindingContext).Results = results;
         }
     }
 }

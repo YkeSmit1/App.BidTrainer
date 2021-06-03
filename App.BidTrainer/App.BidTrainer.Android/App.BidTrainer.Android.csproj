@@ -54,6 +54,9 @@
     <MandroidI18n />
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.DocumentDB.Core">
+      <Version>2.14.1</Version>
+    </PackageReference>
     <PackageReference Include="NLog">
       <Version>4.7.10</Version>
     </PackageReference>
@@ -61,6 +64,8 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="CosmosDBHelper.cs" />
     <Compile Include="FileAccessHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -103,6 +108,9 @@
     <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\ARM\Debug\libAppEngine.so">
       <Link>lib\armeabi-v7a\libAppEngine.so</Link>
     </AndroidNativeLibrary>
+    <None Include="..\..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -137,6 +145,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\incorrect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icons8_leaderboard_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icons8_settings_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icons8_next_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icons8_flashcards_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icons8_regular_document_32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

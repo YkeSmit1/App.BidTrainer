@@ -44,7 +44,6 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Button Text="Close" Clicked="Button_Clicked" HeightRequest="40"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

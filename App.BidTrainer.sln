@@ -25,6 +25,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppEngine.Android", "AppEng
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppEngine.iOS", "AppEngine\AppEngine.iOS\AppEngine.iOS.vcxproj", "{FD8BF3D0-1ED0-42CD-9D0F-19330817EB1C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A3834BAE-3D36-4FF7-B816-8AF445203BFF}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		AppEngine\AppEngine.Shared\AppEngine.Shared.vcxitems*{429c2b45-0cb2-42dd-928b-e03cc1a90dea}*SharedItemsImports = 4
