@@ -10,8 +10,8 @@ namespace Common
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public class Auction
     {
-        public Player currentPlayer;
-        private int currentBiddingRound;
+        public Player currentPlayer { get; set; }
+        public int currentBiddingRound { get; set; }
         public Dictionary<int, Dictionary<Player, Bid>> bids { get; set; } = new Dictionary<int, Dictionary<Player, Bid>>();
         public Bid currentContract = Bid.PassBid;
         public bool responderHasSignedOff = false;

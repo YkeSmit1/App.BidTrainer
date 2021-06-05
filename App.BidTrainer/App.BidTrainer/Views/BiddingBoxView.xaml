@@ -8,9 +8,11 @@
   </ContentView.BindingContext>
     <ContentView.Resources>
         <DataTemplate x:Key="BidButtonsTemplate">
-            <Frame Padding="1" WidthRequest="43" BackgroundColor="Green" CornerRadius="8">
+            <Frame Padding="1" WidthRequest="40" BackgroundColor="MediumSeaGreen" CornerRadius="5">
                 <Button Text="{Binding}" 
-                        FontSize="8"
+                        FontSize="9"
+                        BackgroundColor="White"
+                        TextColor="Black"
                         HorizontalOptions="Center" VerticalOptions="Center"
                         Command="{Binding Path=BindingContext.DoBid, Source={RelativeSource AncestorType={x:Type CollectionView}} }" 
                         CommandParameter="{Binding}">

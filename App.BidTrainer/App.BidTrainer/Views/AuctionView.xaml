@@ -2,13 +2,24 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:viewmodels="clr-namespace:App.BidTrainer.ViewModels" 
+             xmlns:converters="clr-namespace:App.BidTrainer.Converters"
              x:Class="App.BidTrainer.Views.AuctionView">
     <ContentView.BindingContext>
         <viewmodels:AuctionViewModel/>
     </ContentView.BindingContext>
+    <ContentView.Resources>
+        <converters:BiddingRoundToPaddingConverter x:Key="BiddingRoundToPaddingConverter"/>
+        <converters:PlayerToVisibilityConverter x:Key="PlayerToVisibilityConverter"/>
+    </ContentView.Resources>
   <ContentView.Content>
-      <StackLayout>
-            <CollectionView Grid.Row="1" ItemsSource="{Binding Auction.bids.Values}" BackgroundColor="Green">
+        <Grid Padding="3" BackgroundColor="White" HeightRequest="150">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <CollectionView Grid.Row="0" ItemsSource="{Binding Auction.bids.Values}">
                 <CollectionView.Header>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="West" FontSize="Micro" FontAttributes="Bold" HeightRequest="25"/>
@@ -34,6 +45,9 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </StackLayout>
+            <Label Grid.Row="0" Text="?" FontSize="Micro" 
+                   Padding="{Binding Auction.currentBiddingRound, Converter={StaticResource BiddingRoundToPaddingConverter}}"
+                   IsVisible="{Binding Auction.currentPlayer, Converter={StaticResource PlayerToVisibilityConverter}}"/>
+        </Grid>
   </ContentView.Content>
 </ContentView>

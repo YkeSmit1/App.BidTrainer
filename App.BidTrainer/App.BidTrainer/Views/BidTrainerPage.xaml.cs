@@ -124,7 +124,6 @@ namespace App.BidTrainer.Views
             if (isInHintMode)
             {
                 currentResult.UsedHint = true;
-                isInHintMode = false;
                 await DisplayAlert("Information", bidManager.GetInformation(bid, auction.currentPosition), "OK");
             }
             else
@@ -279,11 +278,6 @@ namespace App.BidTrainer.Views
             ShowReport();
         }
 
-        private void Button_Clicked_3(object sender, EventArgs e)
-        {
-            isInHintMode = true;
-        }
-
         private async void Button_Clicked_4(object sender, EventArgs e)
         {
             var accounts = await DependencyService.Get<ICosmosDBHelper>().GetAllAccounts();
@@ -304,6 +298,12 @@ namespace App.BidTrainer.Views
                 StatusLabel.Text = $"Username: {Preferences.Get("Username", "")}\nLesson: {Lesson.LessonNr}\nBoard: {CurrentBoardIndex + 1}";
                 ShowBothHands();
             }
+        }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            isInHintMode = e.Value;
+            labelMode.Text = isInHintMode ? "Hint" : "Bid";
         }
     }
 }
