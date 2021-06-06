@@ -10,6 +10,11 @@
     <ContentView.Resources>
         <converters:BiddingRoundToPaddingConverter x:Key="BiddingRoundToPaddingConverter"/>
         <converters:PlayerToVisibilityConverter x:Key="PlayerToVisibilityConverter"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Micro"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="HeightRequest" Value="25"/>
+        </Style>
     </ContentView.Resources>
   <ContentView.Content>
         <Grid Padding="3" BackgroundColor="White" HeightRequest="150">
@@ -22,10 +27,10 @@
             <CollectionView Grid.Row="0" ItemsSource="{Binding Auction.bids.Values}">
                 <CollectionView.Header>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="West" FontSize="Micro" FontAttributes="Bold" HeightRequest="25"/>
-                        <Label Text="North" FontSize="Micro" FontAttributes="Bold" HeightRequest="25"/>
-                        <Label Text="East" FontSize="Micro" FontAttributes="Bold" HeightRequest="25"/>
-                        <Label Text="South" FontSize="Micro" FontAttributes="Bold" HeightRequest="25"/>
+                        <Label Text="West" WidthRequest="28"/>
+                        <Label Text="North" WidthRequest="30"/>
+                        <Label Text="East" WidthRequest="28"/>
+                        <Label Text="South" WidthRequest="30"/>
                     </StackLayout>
                 </CollectionView.Header> 
                 <CollectionView.ItemTemplate>

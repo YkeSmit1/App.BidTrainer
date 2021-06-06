@@ -8,7 +8,7 @@
   </ContentView.BindingContext>
     <ContentView.Resources>
         <DataTemplate x:Key="BidButtonsTemplate">
-            <Frame Padding="1" WidthRequest="40" BackgroundColor="MediumSeaGreen" CornerRadius="5">
+            <Frame Padding="1" WidthRequest="42" BackgroundColor="MediumSeaGreen" CornerRadius="5">
                 <Button Text="{Binding}" 
                         FontSize="9"
                         BackgroundColor="White"

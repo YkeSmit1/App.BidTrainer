@@ -14,7 +14,7 @@
                     <LinearItemsLayout Orientation="Horizontal"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="local:Card">
                         <StackLayout>
                             <Image Source="{Binding ImageSource}" 
                                    Aspect="AspectFit" 

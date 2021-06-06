@@ -156,8 +156,11 @@ namespace App.BidTrainer.Views
 
         private async Task StartNextBoard()
         {
-            panelNorth.IsVisible = false;
-            BiddingBoxView.IsEnabled = true;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                panelNorth.IsVisible = false;
+                BiddingBoxView.IsEnabled = true;
+            });
             if (CurrentBoardIndex > pbn.Boards.Count - 1)
             {
                 CurrentBoardIndex = 0;

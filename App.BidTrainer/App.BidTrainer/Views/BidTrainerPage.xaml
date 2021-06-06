@@ -13,8 +13,8 @@
             <Setter Property="BackgroundColor" Value="Transparent"/>
             <Setter Property="Background" Value="SeaGreen"/>
             <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="WidthRequest" Value="75"/>
-            <Setter Property="HeightRequest" Value="65"/>
+            <Setter Property="WidthRequest" Value="65"/>
+            <Setter Property="HeightRequest" Value="60"/>
             <Setter Property="ContentLayout" Value="Top,0"/>
             <Setter Property="TextTransform" Value="None"/>
         </Style>
@@ -39,7 +39,7 @@
             </StackLayout>
             <Grid Grid.Row="2" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="230"/>
+                    <ColumnDefinition Width="220"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackLayout Grid.Column="0">
@@ -60,7 +60,7 @@
                 </StackLayout>
             </Grid>
             <!-- Southhand-->
-            <StackLayout Grid.Row="3" Padding="40,0,0,0">
+            <StackLayout Grid.Row="3" Padding="20,0,0,0">
                 <views:HandView x:Name="panelSouth"/>
             </StackLayout>
             <StackLayout Grid.Row="4">
