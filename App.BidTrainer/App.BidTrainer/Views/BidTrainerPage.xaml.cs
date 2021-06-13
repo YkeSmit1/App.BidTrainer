@@ -198,8 +198,9 @@ namespace App.BidTrainer.Views
         private void ShowBothHands()
         {
             var alternateSuits = Preferences.Get("AlternateSuits", true);
-            Task.Run(() => HandViewModelNorth.ShowHand(Deal[Player.North], alternateSuits));
-            Task.Run(() => HandViewModelSouth.ShowHand(Deal[Player.South], alternateSuits));
+            var cardProfile = Preferences.Get("CardImageSettings", "default");
+            Task.Run(() => HandViewModelNorth.ShowHand(Deal[Player.North], alternateSuits, cardProfile));
+            Task.Run(() => HandViewModelSouth.ShowHand(Deal[Player.South], alternateSuits, cardProfile));
         }
 
         private async Task BidTillSouth()

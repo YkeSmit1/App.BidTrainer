@@ -17,9 +17,9 @@
                         <DataTemplate x:DataType="local:Card">
                         <StackLayout>
                             <Image Source="{Binding ImageSource}" 
-                                   Aspect="AspectFit" 
-                                   WidthRequest="{Binding Index.Width}"
-                                   HeightRequest="{Binding Index.Height}"/>
+                                Aspect="AspectFit" 
+                                WidthRequest="{Binding Width}"
+                                HeightRequest="{Binding Height}"/>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

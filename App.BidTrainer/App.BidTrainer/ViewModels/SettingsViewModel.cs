@@ -22,6 +22,13 @@ namespace App.BidTrainer.ViewModels
             set => SetProperty(ref alternateSuits, value); 
         }
 
+        private string cardImage;
+        public string CardImage
+        {
+            get => cardImage;
+            set => SetProperty(ref cardImage, value);
+        }
+
         public SettingsViewModel()
         {
             Load();
@@ -31,12 +38,14 @@ namespace App.BidTrainer.ViewModels
         {
             Username = Preferences.Get("Username", "");
             AlternateSuits = Preferences.Get("AlternateSuits", true);
+            CardImage = Preferences.Get("CardImageSettings", "default");
         }
 
         public void Save()
         {
             Preferences.Set("Username", Username);
             Preferences.Set("AlternateSuits", AlternateSuits);
+            Preferences.Set("CardImageSettings", CardImage);
         }
     }
 }

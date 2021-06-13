@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -16,6 +17,8 @@ namespace App.BidTrainer.Views
         public SettingsPage()
         {
             InitializeComponent();
+            imageDefault.Source = ImageSource.FromResource("App.BidTrainer.Resources.cardfaces.png", typeof(SettingsPage).GetTypeInfo().Assembly);
+            imageBbo.Source = ImageSource.FromResource("App.BidTrainer.Resources.cardfaces2.jpg", typeof(SettingsPage).GetTypeInfo().Assembly);
         }
 
         protected override void OnAppearing()

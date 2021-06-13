@@ -7,10 +7,12 @@
 
   <ItemGroup>
     <None Remove="Resources\cardfaces.png" />
+    <None Remove="Resources\cardfaces2.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\cardfaces.png" />
+    <EmbeddedResource Include="Resources\cardfaces2.jpg" />
   </ItemGroup>
 
   <ItemGroup>
