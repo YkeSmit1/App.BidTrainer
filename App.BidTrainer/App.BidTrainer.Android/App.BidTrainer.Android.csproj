@@ -55,13 +55,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core">
-      <Version>2.14.1</Version>
+      <Version>2.16.2</Version>
     </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.7.10</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
@@ -75,13 +72,15 @@
     <AndroidAsset Include="Assets\data\lesson2.pbn" />
     <AndroidAsset Include="Assets\data\lesson3.pbn" />
     <AndroidAsset Include="Assets\data\lesson4.pbn" />
+    <AndroidAsset Include="Assets\data\lesson5.pbn" />
+    <AndroidAsset Include="Assets\data\lesson6.pbn" />
+    <AndroidAsset Include="Assets\data\lesson7.pbn" />
     <AndroidAsset Include="Assets\data\four_card_majors.db3" />
     <AndroidAsset Include="Assets\data\lessons.json" />
     <AndroidNativeLibrary Include="..\..\..\vcpkg\buildtrees\sqlite3\x86-android-dbg\libsqlite3.so">
       <Link>lib\x86\libsqlite3.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
-    <AndroidAsset Include="Assets\nlog.config" />
     <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\x86\Debug\libAppEngine.so">
       <Link>lib\x86\libAppEngine.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -107,6 +106,7 @@
     </AndroidNativeLibrary>
     <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\ARM\Debug\libAppEngine.so">
       <Link>lib\armeabi-v7a\libAppEngine.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
     <None Include="..\..\.editorconfig">
       <Link>.editorconfig</Link>

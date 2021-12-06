@@ -10,8 +10,9 @@ namespace Common
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public class Auction
     {
-        public Player currentPlayer { get; set; }
-        public int currentBiddingRound { get; set; }
+        public Player CurrentPlayer { get; set; }
+        public int CurrentBiddingRound { get; set; }
+
         public Dictionary<int, Dictionary<Player, Bid>> bids { get; set; } = new Dictionary<int, Dictionary<Player, Bid>>();
         public Bid currentContract = Bid.PassBid;
         public bool responderHasSignedOff = false;
@@ -28,6 +29,19 @@ namespace Common
             var bidsNorth = GetBids(Player.North);
             var bidsSouth = GetBids(Player.South);
             return string.Join(separator, bidsNorth.Zip(bidsSouth, (x, y) => $"{x}{y} {y.description}")) + (bidsNorth.Count() > bidsSouth.Count() ? separator + bidsNorth.Last() : "");
+        }
+
+        public Player GetDeclarer()
+        {
+            foreach (var biddingRoud in bids.Values)
+            {
+                foreach (var bid in biddingRoud)
+                {
+                    if (bid.Value.bidType == BidType.bid && bid.Value.suit == currentContract.suit)
+                        return bid.Key;
+                }
+            }
+            return Player.UnKnown;
         }
 
         public Player GetDeclarer(Suit suit)
@@ -55,17 +69,17 @@ namespace Common
             if (bid != Bid.PassBid || currentContract != Bid.PassBid)
                 currentPosition++;
 
-            if (!bids.ContainsKey(currentBiddingRound))
-                bids[currentBiddingRound] = new Dictionary<Player, Bid>();
-            bids[currentBiddingRound][currentPlayer] = bid;
+            if (!bids.ContainsKey(CurrentBiddingRound))
+                bids[CurrentBiddingRound] = new Dictionary<Player, Bid>();
+            bids[CurrentBiddingRound][CurrentPlayer] = bid;
 
-            if (currentPlayer == Player.South)
+            if (CurrentPlayer == Player.South)
             {
-                currentPlayer = Player.West;
-                ++currentBiddingRound;
+                CurrentPlayer = Player.West;
+                ++CurrentBiddingRound;
             }
             else
-                ++currentPlayer;
+                ++CurrentPlayer;
 
             if (bid.bidType == BidType.bid)
                 currentContract = bid;
@@ -76,8 +90,8 @@ namespace Common
         public void Clear(Player dealer)
         {
             bids.Clear();
-            currentPlayer = dealer;
-            currentBiddingRound = 1;
+            CurrentPlayer = dealer;
+            CurrentBiddingRound = 1;
             currentContract = Bid.PassBid;
             currentPosition = 1;
 
@@ -94,6 +108,11 @@ namespace Common
         public string GetBidsAsString(Player player)
         {
             return bids.Where(x => x.Value.ContainsKey(player)).Aggregate(string.Empty, (current, biddingRound) => current + biddingRound.Value[player]);
+        }
+
+        public string GetBidsAsStringASCII()
+        {
+            return bids.SelectMany(x => x.Value.Values).Aggregate(string.Empty, (string current, Bid bid) => current + bid.ToStringASCII());
         }
 
         public string GetBidsAsString(Fase fase)
@@ -181,11 +200,24 @@ namespace Common
                 BidType.pass => true,
                 BidType.bid => currentContract.bidType != BidType.bid || currentContract < bid,
                 BidType.dbl => currentBidType == BidType.bid &&
-                    !Util.IsSameTeam(currentPlayer, GetDeclarer(currentContract.suit)),
+                    !Util.IsSameTeam(CurrentPlayer, GetDeclarer()),
                 BidType.rdbl => currentBidType == BidType.dbl &&
-                    Util.IsSameTeam(currentPlayer, GetDeclarer(currentContract.suit)),
+                    Util.IsSameTeam(CurrentPlayer, GetDeclarer()),
                 _ => throw new InvalidEnumArgumentException(nameof(bid.bidType), (int)bid.bidType, null),
             };
         }
+
+        public bool IsCompetitive()
+        {
+            var nsHasBid = PlayerHasBid(Player.North) || PlayerHasBid(Player.South);
+            var ewHasBid = PlayerHasBid(Player.West) || PlayerHasBid(Player.East);
+            return nsHasBid && ewHasBid;
+
+            bool PlayerHasBid(Player player)
+            {
+                return GetBids(player).Any(x => x.bidType == BidType.bid);
+            }
+        }
+
     }
 }

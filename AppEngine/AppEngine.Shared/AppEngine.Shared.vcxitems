@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Api.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BoardCharacteristic.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ISQLiteWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Rule.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SQLiteCppWrapper.cpp" />
@@ -23,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Api.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BoardCharacteristic.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ISQLiteWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Rule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SQLiteCppWrapper.h" />

@@ -18,44 +18,36 @@ void HandCharacteristic::Initialize(const std::string& hand)
     assert(suits.size() == 4);
     suitLengths.clear();
     std::transform(suits.begin(), suits.end(), std::back_inserter(suitLengths), [](const auto& x) {return (int)x.length(); });
-    std::sort(suits.begin(), suits.end(), [] (const auto& l, const auto& r) noexcept {return l.length() > r.length();});
-    distribution = std::to_string(suits[0].length()) + std::to_string(suits[1].length()) + 
+    auto suitLengthSorted = suitLengths;
+
+    std::sort(suitLengthSorted.begin(), suitLengthSorted.end(), std::greater<>{});
+    lengthFirstSuit = suitLengthSorted.at(0);
+    lengthSecondSuit = suitLengthSorted.at(1);
+
+    auto suitsEqualLength = lengthFirstSuit == lengthSecondSuit;
+
+    firstSuit = suitsEqualLength ? -1 : (int)std::distance(suitLengths.begin(), std::find(suitLengths.begin(), suitLengths.end(), lengthFirstSuit));
+    secondSuit = suitsEqualLength ? -1 : (int)std::distance(suitLengths.begin(), std::find(suitLengths.begin(), suitLengths.end(), lengthSecondSuit));
+
+    highestSuit = !suitsEqualLength ? -1 : (int)std::distance(suitLengths.begin(), std::find(suitLengths.begin(), suitLengths.end(), lengthFirstSuit));
+    lowestSuit = !suitsEqualLength ? -1 : (int)std::distance(std::find(suitLengths.rbegin(), suitLengths.rend(), lengthFirstSuit), suitLengths.rend()) - 1;
+
+    Hcp = Utils::CalculateHcp(hand);
+    controls.clear();
+    for (auto suit = 0; suit <= 3; suit++)
+    {
+        controls.push_back(GetHasControl(suits.at(suit)));
+    }
+
+    std::sort(suits.begin(), suits.end(), [](const auto& l, const auto& r) noexcept {return l.length() > r.length(); });
+    auto distribution = std::to_string(suits[0].length()) + std::to_string(suits[1].length()) +
         std::to_string(suits[2].length())  + std::to_string(suits[3].length());
     isBalanced = distribution == "4333" || distribution == "4432" || distribution == "5332";
-    isTwoSuiter = CalculateIsTwoSuiter(suitLengths);
-    isThreeSuiter = CalculateIsThreeSuiter(suitLengths);
-    isReverse = !isBalanced && !isThreeSuiter && CalculateIsReverse(suitLengths);
-    Hcp = CalculateHcp(hand);
+    isSemiBalanced = isBalanced || distribution == "5422" || distribution == "4441" || distribution == "5431";
+    isReverse = firstSuit > secondSuit && !suitsEqualLength;
 }
 
-bool HandCharacteristic::CalculateIsReverse(const std::vector<int>& suitLengths)
+bool HandCharacteristic::GetHasControl(const std::string& suit)
 {
-    std::vector<int> longSuits;
-    std::copy_if(suitLengths.begin(), suitLengths.end(), std::inserter(longSuits, longSuits.begin()), [] (const auto &x) {return x > 3;});
-    return longSuits.size() > 1 && longSuits.at(0) == 4;
-}
-
-bool HandCharacteristic::CalculateIsTwoSuiter(const std::vector<int>& suitLengths)
-{
-    return (std::count_if(suitLengths.begin(), suitLengths.end(), [](const auto& x) {return x > 4; }) > 0) &&
-        ((std::count_if(suitLengths.begin(), suitLengths.end(), [](const auto& x) {return x > 3; }) > 1));
-}
-
-bool HandCharacteristic::CalculateIsThreeSuiter(const std::vector<int>& suitLength)
-{
-    return std::count_if(suitLength.begin(), suitLength.end(), [] (const auto &x) {return x > 3;}) == 3;
-}
-
-int HandCharacteristic::CalculateHcp(const std::string& hand)
-{
-    const auto aces = NumberOfCards(hand, 'A');
-    const auto kings = NumberOfCards(hand, 'K');
-    const auto queens = NumberOfCards(hand, 'Q');
-    const auto jacks = NumberOfCards(hand, 'J');
-    return aces * 4 + kings * 3 + queens * 2 + jacks;
-}
-
-int HandCharacteristic::NumberOfCards(const std::string& hand, char card)
-{
-    return (int)std::count_if(hand.begin(), hand.end(), [card](char c) {return c == card; });
+    return suit.length() <= 1 || Utils::NumberOfCards(suit, 'A') == 1 || Utils::NumberOfCards(suit, 'K') == 1;
 }

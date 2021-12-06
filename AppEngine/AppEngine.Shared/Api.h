@@ -10,13 +10,40 @@ enum class Phase
     JacobyHearts,
     JacobySpades,
     OverCall,
-    TakeOutDbl,
-    OneNTOvercall
+    TakeOutDbl, 
+    OneNTOvercall,
+    TwoNT,
+    TwoClubs,
+    SlamBidding
+};
+
+enum class BidKind
+{
+    UnknownSuit,
+    FirstSuit,
+    SecondSuit,
+    LowestSuit,
+    HighestSuit,
+    PartnersSuit,
+    OpponentsSuit
+};
+
+enum class Modules
+{
+    FourCardMajors = 1,
+    FiveCardMajors = 2,
+    TwoBidsAndHigher = 4,
+    NegativeDbl = 8,
+    Reverse = 16,
+    ControlBids = 32,
+    RKC = 64
 };
 
 extern "C" {
-    int GetBidFromRule(Phase phase, const char* hand, int lastBidId, int position,
-        int* minSuitsPartner, int* minSuitsOpener, Phase* newPhase, char* description);
-    void GetRulesByBid(Phase phase, int bidId, int position, char* information);
+    int GetBidFromRule(Phase phase, const char* hand, int lastBidId, int position, int* minSuitsPartner, int* minSuitsOpener, 
+        const char* previousBidding, const char* previousSlamBidding, bool isCompetitive, int minHcpPartner, bool allControlsPresent, Phase* newPhase, char* description);
+    void GetRulesByBid(Phase phase, int bidId, int position, const char* previousBidding, bool isCompetitive, char* information);
+    void GetRelativeRulesByBid(int bidId, const char* previousBidding, char* information);
     int Setup(const char* database);
+    void SetModules(int modules);
 }

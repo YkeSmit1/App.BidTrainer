@@ -8,8 +8,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 using Newtonsoft.Json;
-using NLog;
-using NLog.Config;
 using MvvmHelpers.Commands;
 using Common;
 using EngineWrapper;
@@ -63,9 +61,6 @@ namespace App.BidTrainer.Views
         private HandViewModel HandViewModelNorth => (HandViewModel)panelNorth.BindingContext;
         private HandViewModel HandViewModelSouth => (HandViewModel)panelSouth.BindingContext;
 
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-
         public BidTrainerPage()
         {
             InitializeComponent();
@@ -76,7 +71,6 @@ namespace App.BidTrainer.Views
         {
             try
             {
-                LogManager.Configuration = new XmlLoggingConfiguration("assets/nlog.config");
                 Application.Current.ModalPopping += PopModel;
                 var lessonsFileName = Path.Combine(dataPath, "lessons.json");
                 lessons = JsonConvert.DeserializeObject<List<Lesson>>(File.ReadAllText(lessonsFileName));
@@ -87,12 +81,12 @@ namespace App.BidTrainer.Views
                     results = JsonConvert.DeserializeObject<Results>(File.ReadAllText(resultsFileName));
                 isInitialized = true;
 
-                await StartLesson();
+                Device.BeginInvokeOnMainThread(async () => await StartLesson());
+
             }
             catch (Exception e)
             {
                 await DisplayAlert("Error", e.ToString(), "OK");
-                logger.Error(e);
                 throw;
             }
         }
@@ -107,6 +101,7 @@ namespace App.BidTrainer.Views
             if (e.Modal == startPage)
             {
                 pbn.Load(Path.Combine(dataPath, Lesson.PbnFile));
+                Pinvoke.SetModules(Lesson.Modules);
                 if (CurrentBoardIndex == 0)
                     results.AllResults.Remove(Lesson.LessonNr);
                 await StartNextBoard();
@@ -124,7 +119,7 @@ namespace App.BidTrainer.Views
             if (isInHintMode)
             {
                 currentResult.UsedHint = true;
-                await DisplayAlert("Information", bidManager.GetInformation(bid, auction.currentPosition), "OK");
+                await DisplayAlert("Information", bidManager.GetInformation(bid, auction), "OK");
             }
             else
             {
@@ -169,6 +164,7 @@ namespace App.BidTrainer.Views
                 {
                     CurrentLesson++;
                     pbn.Load(Path.Combine(dataPath, Lesson.PbnFile));
+                    Pinvoke.SetModules(Lesson.Modules);
                 }
                 else
                 {
@@ -205,9 +201,9 @@ namespace App.BidTrainer.Views
 
         private async Task BidTillSouth()
         {
-            while (auction.currentPlayer != Player.South && !auction.IsEndOfBidding())
+            while (auction.CurrentPlayer != Player.South && !auction.IsEndOfBidding())
             {
-                var bid = bidManager.GetBid(auction, Deal[auction.currentPlayer]);
+                var bid = bidManager.GetBid(auction, Deal[auction.CurrentPlayer]);
                 UpdateBidControls(bid);
             }
 

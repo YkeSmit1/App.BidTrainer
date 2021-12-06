@@ -1,5 +1,6 @@
 ﻿using Common;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EngineWrapper
 {
@@ -7,6 +8,7 @@ namespace EngineWrapper
     {
         private Phase phaseOpener = Phase.Opening;
         private Phase phaseDefensive = Phase.Opening;
+        public List<string> SlamBids = new List<string>();
 
         public Phase GetCurrentPhase(int position)
         {
@@ -19,8 +21,11 @@ namespace EngineWrapper
             var isPhaseOpener = auction.currentPosition % 2 == 1;
             var phase = GetCurrentPhase(auction.currentPosition);
 
-            var (bidIdFromRule, nextPhase, description) = BidGenerator.GetBid(handsString, auction, phase);
-            var bid = CalculateBid(bidIdFromRule, description, auction.currentPosition, phase);
+            string slamBids = string.Join("", SlamBids);
+            var (bidIdFromRule, nextPhase, description) = BidGenerator.GetBid(handsString, auction, phase, slamBids);
+            var bid = CalculateBid(bidIdFromRule, description, auction, phase, nextPhase, slamBids);
+            if (nextPhase == Phase.SlamBidding)
+                SlamBids.Add(bid.ToStringASCII());
 
             if (isPhaseOpener)
                 phaseOpener = nextPhase;
@@ -29,7 +34,7 @@ namespace EngineWrapper
             return bid;
         }
 
-        private static Bid CalculateBid(int bidIdFromRule, string description, int position, Phase phase)
+        private static Bid CalculateBid(int bidIdFromRule, string description, Auction auction, Phase phase, Phase nextPhase, string slamBids)
         {
             if (bidIdFromRule == 0)
                 return Bid.PassBid;
@@ -38,21 +43,32 @@ namespace EngineWrapper
             currentBid.description = description;
 
             if (bidIdFromRule != 0)
-                (currentBid.minRecords, currentBid.maxRecords, _) = BidGenerator.GetRecords(currentBid, phase, position);
+                currentBid.extraInformation = BidGenerator.GetRecords(currentBid, phase, nextPhase, auction, string.Join("", slamBids));
 
             return currentBid;
         }
 
-        public string GetInformation(Bid bid, int position)
+        public string GetInformation(Bid bid, Auction auction)
         {
-            var (minRecords, maxRecords, description) = BidGenerator.GetRecords(bid, GetCurrentPhase(position), position);
-            return Util.GetInformation(minRecords, maxRecords, description);
+            var bidInformation = BidGenerator.GetRecords(bid, GetCurrentPhase(auction.currentPosition), Phase.Unknown, auction, string.Join("", SlamBids));
+            return GetInformation(bidInformation.minRecords, bidInformation.maxRecords);
+
+            static string GetInformation(Dictionary<string, int> minRecords, Dictionary<string, int> maxRecords)
+            {
+                return minRecords.Count() == 0 ? "No information" : $"Spades: {minRecords["MinSpades"]} - {maxRecords["MaxSpades"]}" +
+                    $"\nHearts: {minRecords["MinHearts"]} - {maxRecords["MaxHearts"]}" +
+                    $"\nDiamonds: {minRecords["MinDiamonds"]} - {maxRecords["MaxDiamonds"]}" +
+                    $"\nClubs: {minRecords["MinClubs"]} - {maxRecords["MaxClubs"]}" +
+                    $"\nHcp: {minRecords["MinHcp"]} - {maxRecords["MaxHcp"]}";
+            }
         }
+
 
         public void Init()
         {
             phaseOpener = Phase.Opening;
             phaseDefensive = Phase.Opening;
+            SlamBids.Clear();
         }
 
         public Auction GetAuction(Dictionary<Player, string> deal, Player dealer)
@@ -62,7 +78,7 @@ namespace EngineWrapper
             auction.Clear(dealer);
             while (!auction.IsEndOfBidding())
             {
-                var bid = GetBid(auction, deal[auction.currentPlayer]);
+                var bid = GetBid(auction, deal[auction.CurrentPlayer]);
                 auction.AddBid(bid);
             }
             return auction;
