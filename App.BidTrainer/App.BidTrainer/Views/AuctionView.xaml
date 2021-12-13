@@ -17,7 +17,7 @@
         </Style>
     </ContentView.Resources>
   <ContentView.Content>
-        <Grid Padding="3" BackgroundColor="White" HeightRequest="150">
+        <Grid Padding="3" BackgroundColor="{AppThemeBinding Light=White, Dark=Black}" HeightRequest="150">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -27,10 +27,10 @@
             <CollectionView Grid.Row="0" ItemsSource="{Binding Auction.bids.Values}">
                 <CollectionView.Header>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="West" WidthRequest="28"/>
-                        <Label Text="North" WidthRequest="30"/>
-                        <Label Text="East" WidthRequest="28"/>
-                        <Label Text="South" WidthRequest="30"/>
+                        <Label Text="West" WidthRequest="28" TextColor="{AppThemeBinding Light=Gray, Dark=White}"/>
+                        <Label Text="North" WidthRequest="30" TextColor="{AppThemeBinding Light=Gray, Dark=White}"/>
+                        <Label Text="East" WidthRequest="28" TextColor="{AppThemeBinding Light=Gray, Dark=White}"/>
+                        <Label Text="South" WidthRequest="30" TextColor="{AppThemeBinding Light=Gray, Dark=White}"/>
                     </StackLayout>
                 </CollectionView.Header> 
                 <CollectionView.ItemTemplate>
@@ -39,7 +39,7 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
-                                        <Label Text="{Binding Value}" FontSize="Micro" WidthRequest="30"/>
+                                        <Label Text="{Binding Value}" FontSize="Micro" WidthRequest="30" TextColor="{AppThemeBinding Light=Gray, Dark=White}"/>
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>                            

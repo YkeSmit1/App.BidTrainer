@@ -11,8 +11,8 @@
             <Frame Padding="1" WidthRequest="42" BackgroundColor="MediumSeaGreen" CornerRadius="5">
                 <Button Text="{Binding}" 
                         FontSize="9"
-                        BackgroundColor="White"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark=Black}"
+                        TextColor="{AppThemeBinding Light=Gray, Dark=White}"
                         HorizontalOptions="Center" VerticalOptions="Center"
                         Command="{Binding Path=BindingContext.DoBid, Source={RelativeSource AncestorType={x:Type CollectionView}} }" 
                         CommandParameter="{Binding}">
