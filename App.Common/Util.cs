@@ -403,14 +403,13 @@ namespace Common
             }
         }
 
-        public static string GetInformation(Dictionary<string, int> minRecords, Dictionary<string, int> maxRecords, string description)
+        public static string GetInformation(Dictionary<string, int> minRecords, Dictionary<string, int> maxRecords)
         {
             return minRecords.Count() == 0 ? "No information" : $"Spades: {minRecords["MinSpades"]} - {maxRecords["MaxSpades"]}" +
                 $"\nHearts: {minRecords["MinHearts"]} - {maxRecords["MaxHearts"]}" +
                 $"\nDiamonds: {minRecords["MinDiamonds"]} - {maxRecords["MaxDiamonds"]}" +
                 $"\nClubs: {minRecords["MinClubs"]} - {maxRecords["MaxClubs"]}" +
-                $"\nHcp: {minRecords["MinHcp"]} - {maxRecords["MaxHcp"]}" +
-                $"\nDescription: {description}";
+                $"\nHcp: {minRecords["MinHcp"]} - {maxRecords["MaxHcp"]}";
         }
 
         public static Player GetPartner(Player player)

@@ -51,8 +51,8 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Label Grid.Row="0" Text="?" FontSize="Micro" 
-                   Padding="{Binding Auction.currentBiddingRound, Converter={StaticResource BiddingRoundToPaddingConverter}}"
-                   IsVisible="{Binding Auction.currentPlayer, Converter={StaticResource PlayerToVisibilityConverter}}"/>
+                   Padding="{Binding Auction.CurrentBiddingRound, Converter={StaticResource BiddingRoundToPaddingConverter}}"
+                   IsVisible="{Binding Auction.CurrentPlayer, Converter={StaticResource PlayerToVisibilityConverter}}"/>
         </Grid>
   </ContentView.Content>
 </ContentView>

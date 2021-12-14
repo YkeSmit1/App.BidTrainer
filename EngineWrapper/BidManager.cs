@@ -38,15 +38,15 @@ namespace EngineWrapper
             currentBid.description = description;
 
             if (bidIdFromRule != 0)
-                (currentBid.minRecords, currentBid.maxRecords, _) = BidGenerator.GetRecords(currentBid, phase, position);
+                (currentBid.minRecords, currentBid.maxRecords) = BidGenerator.GetRecords(currentBid, phase, position);
 
             return currentBid;
         }
 
         public string GetInformation(Bid bid, int position)
         {
-            var (minRecords, maxRecords, description) = BidGenerator.GetRecords(bid, GetCurrentPhase(position), position);
-            return Util.GetInformation(minRecords, maxRecords, description);
+            var (minRecords, maxRecords) = BidGenerator.GetRecords(bid, GetCurrentPhase(position), position);
+            return Util.GetInformation(minRecords, maxRecords);
         }
 
         public void Init()
@@ -62,7 +62,7 @@ namespace EngineWrapper
             auction.Clear(dealer);
             while (!auction.IsEndOfBidding())
             {
-                var bid = GetBid(auction, deal[auction.currentPlayer]);
+                var bid = GetBid(auction, deal[auction.CurrentPlayer]);
                 auction.AddBid(bid);
             }
             return auction;

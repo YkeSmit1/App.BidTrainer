@@ -200,9 +200,9 @@ namespace App.BidTrainer.Views
 
         private async Task BidTillSouth()
         {
-            while (auction.currentPlayer != Player.South && !auction.IsEndOfBidding())
+            while (auction.CurrentPlayer != Player.South && !auction.IsEndOfBidding())
             {
-                var bid = bidManager.GetBid(auction, Deal[auction.currentPlayer]);
+                var bid = bidManager.GetBid(auction, Deal[auction.CurrentPlayer]);
                 UpdateBidControls(bid);
             }
 

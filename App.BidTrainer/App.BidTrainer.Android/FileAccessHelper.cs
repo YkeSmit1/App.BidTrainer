@@ -26,7 +26,8 @@ namespace App.BidTrainer.Droid
                 foreach (var file in assets.List("data"))
                 {
                     using var writeStream = new FileStream(Path.Combine(docFolder, file), FileMode.Create, FileAccess.Write);
-                    assets.Open(Path.Combine("data", file)).CopyTo(writeStream);
+                    using var stream = assets.Open(Path.Combine("data", file));
+                    stream.CopyTo(writeStream);
                 }
             }
             return docFolder;

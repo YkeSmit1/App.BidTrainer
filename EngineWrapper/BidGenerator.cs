@@ -13,7 +13,7 @@ namespace EngineWrapper
         public static (int, Phase, string) GetBid(string handsString, Auction auction, Phase phase)
         {
             var description = new StringBuilder(128);
-            var bidsPartner = auction.GetBids(Util.GetPartner(auction.currentPlayer));
+            var bidsPartner = auction.GetBids(Util.GetPartner(auction.CurrentPlayer));
             var minLengthPartner = GetMinSuitLength(bidsPartner);
 
             var bidsOpener = auction.GetBids(auction.GetDeclarer(auction.currentContract.suit));
@@ -21,7 +21,6 @@ namespace EngineWrapper
 
             var bidId = Pinvoke.GetBidFromRule(phase, handsString, Bid.GetBidId(auction.currentContract), auction.currentPosition,
                 minLengthPartner, minLengthOpener, out var nextPhase, description);
-
             if (bidId == 0)
             {
                 var hcpPartner = GetHcp(bidsPartner);
@@ -70,14 +69,14 @@ namespace EngineWrapper
             }
         }
 
-        public static (Dictionary<string, int> minRecords, Dictionary<string, int> maxRecords, string description) GetRecords(Bid bid, Phase phase, int position)
+        public static (Dictionary<string, int> minRecords, Dictionary<string, int> maxRecords) GetRecords(Bid bid, Phase phase, int position)
         {
-            var informationJson = new StringBuilder(4096);
+            var informationJson = new StringBuilder(8192);
             Pinvoke.GetRulesByBid(phase, Bid.GetBidId(bid), position, informationJson);
             var records = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(informationJson.ToString());
             var minRecords = records.SelectMany(x => x).Where(x => x.Key.StartsWith("Min")).GroupBy(x => x.Key).ToDictionary(g => g.Key, g => g.Select(x => int.Parse(x.Value)).Min());
             var maxRecords = records.SelectMany(x => x).Where(x => x.Key.StartsWith("Max")).GroupBy(x => x.Key).ToDictionary(g => g.Key, g => g.Select(x => int.Parse(x.Value)).Max());
-            return (minRecords, maxRecords, records.Any() ? records.First().GetValueOrDefault("Description", "") : "");
+            return (minRecords, maxRecords);
         }
     }
 }
