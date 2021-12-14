@@ -63,9 +63,6 @@ namespace App.BidTrainer.Views
         private HandViewModel HandViewModelNorth => (HandViewModel)panelNorth.BindingContext;
         private HandViewModel HandViewModelSouth => (HandViewModel)panelSouth.BindingContext;
 
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-
         public BidTrainerPage()
         {
             InitializeComponent();
@@ -76,7 +73,6 @@ namespace App.BidTrainer.Views
         {
             try
             {
-                LogManager.Configuration = new XmlLoggingConfiguration("assets/nlog.config");
                 Application.Current.ModalPopping += PopModel;
                 var lessonsFileName = Path.Combine(dataPath, "lessons.json");
                 lessons = JsonConvert.DeserializeObject<List<Lesson>>(File.ReadAllText(lessonsFileName));
@@ -87,12 +83,11 @@ namespace App.BidTrainer.Views
                     results = JsonConvert.DeserializeObject<Results>(File.ReadAllText(resultsFileName));
                 isInitialized = true;
 
-                await StartLesson();
+                Device.BeginInvokeOnMainThread(async () => await StartLesson());
             }
             catch (Exception e)
             {
                 await DisplayAlert("Error", e.ToString(), "OK");
-                logger.Error(e);
                 throw;
             }
         }
