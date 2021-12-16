@@ -100,30 +100,30 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <IncludePath>D:\src\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;D:\src\vcpkg\buildtrees\nlohmann-json\src\nlohmann-json-v3.9.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;C:\Users\ysmit\source\repos\vcpkg\buildtrees\nlohmann-json\src\v3.10.4-206aa252c5.clean\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <IncludePath>D:\src\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;D:\src\vcpkg\buildtrees\nlohmann-json\src\nlohmann-json-v3.9.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\src\vcpkg\buildtrees\sqlitecpp\x86-android-rel;D:\src\vcpkg\buildtrees\sqlite3\x86-android-rel</LibraryPath>
+    <IncludePath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;C:\Users\ysmit\source\repos\vcpkg\buildtrees\nlohmann-json\src\v3.10.4-206aa252c5.clean\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\x86-android-rel;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\x86-android-rel</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <IncludePath>D:\src\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;D:\src\vcpkg\buildtrees\nlohmann-json\src\nlohmann-json-v3.9.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;C:\Users\ysmit\source\repos\vcpkg\buildtrees\nlohmann-json\src\v3.10.4-206aa252c5.clean\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <IncludePath>D:\src\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;D:\src\vcpkg\buildtrees\nlohmann-json\src\nlohmann-json-v3.9.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;C:\Users\ysmit\source\repos\vcpkg\buildtrees\nlohmann-json\src\v3.10.4-206aa252c5.clean\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
-    <IncludePath>D:\src\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;D:\src\vcpkg\buildtrees\nlohmann-json\src\nlohmann-json-v3.9.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;C:\Users\ysmit\source\repos\vcpkg\buildtrees\nlohmann-json\src\v3.10.4-206aa252c5.clean\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-    <IncludePath>D:\src\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;D:\src\vcpkg\buildtrees\nlohmann-json\src\nlohmann-json-v3.9.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;C:\Users\ysmit\source\repos\vcpkg\buildtrees\nlohmann-json\src\v3.10.4-206aa252c5.clean\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\src\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;D:\src\vcpkg\buildtrees\nlohmann-json\src\nlohmann-json-v3.9.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\src\vcpkg\buildtrees\sqlitecpp\x64-android-dbg;D:\src\vcpkg\buildtrees\sqlite3\x64-android-dbg</LibraryPath>
+    <IncludePath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;C:\Users\ysmit\source\repos\vcpkg\buildtrees\nlohmann-json\src\v3.10.4-206aa252c5.clean\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\x64-android-dbg;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\x64-android-dbg</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\src\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;D:\src\vcpkg\buildtrees\nlohmann-json\src\nlohmann-json-v3.9.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\src\3.1.1-5e011f3304.clean\include;C:\Users\ysmit\source\repos\vcpkg\buildtrees\nlohmann-json\src\v3.10.4-206aa252c5.clean\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
@@ -135,7 +135,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
-      <AdditionalDependencies>D:\src\vcpkg\buildtrees\sqlitecpp\arm64-android-dbg\libSQLiteCpp.a;D:\src\vcpkg\buildtrees\sqlite3\arm64-android-dbg\libsqlite3.so;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\arm64-android-dbg\libSQLiteCpp.a;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\arm64-android-dbg\libsqlite3.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
@@ -148,7 +148,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
-      <AdditionalDependencies>D:\src\vcpkg\buildtrees\sqlitecpp\arm64-android-rel\libSQLiteCpp.a;D:\src\vcpkg\buildtrees\sqlite3\arm64-android-rel\libsqlite3.so;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\arm64-android-rel\libSQLiteCpp.a;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\arm64-android-rel\libsqlite3.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -161,7 +161,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
-      <AdditionalDependencies>D:\src\vcpkg\buildtrees\sqlitecpp\arm-android-dbg\libSQLiteCpp.a;D:\src\vcpkg\buildtrees\sqlite3\arm-android-dbg\libsqlite3.so;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\arm-android-dbg\libSQLiteCpp.a;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\arm-android-dbg\libsqlite3.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -174,7 +174,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
-      <AdditionalDependencies>D:\src\vcpkg\buildtrees\sqlitecpp\arm-android-rel\libSQLiteCpp.a;D:\src\vcpkg\buildtrees\sqlite3\arm-android-rel\libsqlite3.so;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\arm-android-rel\libSQLiteCpp.a;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\arm-android-rel\libsqlite3.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -187,7 +187,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
-      <AdditionalDependencies>D:\src\vcpkg\buildtrees\sqlitecpp\x64-android-dbg\libSQLiteCpp.a;D:\src\vcpkg\buildtrees\sqlite3\x64-android-dbg\libsqlite3.so;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\x64-android-dbg\libSQLiteCpp.a;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\x64-android-dbg\libsqlite3.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -200,7 +200,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
-      <AdditionalDependencies>D:\src\vcpkg\buildtrees\sqlitecpp\x64-android-rel\libSQLiteCpp.a;D:\src\vcpkg\buildtrees\sqlite3\x64-android-rel\libsqlite3.so;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\x64-android-rel\libSQLiteCpp.a;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\x64-android-rel\libsqlite3.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -213,7 +213,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
-      <AdditionalDependencies>D:\src\vcpkg\buildtrees\sqlitecpp\x86-android-dbg\libSQLiteCpp.a;D:\src\vcpkg\buildtrees\sqlite3\x86-android-dbg\libsqlite3.so;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\x86-android-dbg\libSQLiteCpp.a;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\x86-android-dbg\libsqlite3.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
@@ -226,7 +226,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
-      <AdditionalDependencies>D:\src\vcpkg\buildtrees\sqlitecpp\x86-android-rel\libSQLiteCpp.a;D:\src\vcpkg\buildtrees\sqlite3\x86-android-rel\libsqlite3.so;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlitecpp\x86-android-rel\libSQLiteCpp.a;C:\Users\ysmit\source\repos\vcpkg\buildtrees\sqlite3\x86-android-rel\libsqlite3.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
