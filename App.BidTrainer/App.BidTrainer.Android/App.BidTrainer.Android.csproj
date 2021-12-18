@@ -54,6 +54,9 @@
     <MandroidI18n />
     <AndroidLinkTool>r8</AndroidLinkTool>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidPackageFormat>aab</AndroidPackageFormat>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core">
@@ -76,32 +79,17 @@
     <AndroidAsset Include="Assets\data\lesson4.pbn" />
     <AndroidAsset Include="Assets\data\four_card_majors.db3" />
     <AndroidAsset Include="Assets\data\lessons.json" />
-    <AndroidNativeLibrary Include="..\..\..\vcpkg\buildtrees\sqlite3\x86-android-dbg\libsqlite3.a">
-      <Link>lib\x86\libsqlite3.a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidNativeLibrary>
     <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\x86\Debug\libAppEngine.so">
       <Link>lib\x86\libAppEngine.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\..\..\vcpkg\buildtrees\sqlite3\x64-android-dbg\libsqlite3.a">
-      <Link>lib\x86_64\libsqlite3.a</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
     <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\x64\Debug\libAppEngine.so">
       <Link>lib\x86_64\libAppEngine.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\..\..\vcpkg\buildtrees\sqlite3\arm64-android-dbg\libsqlite3.a">
-      <Link>lib\arm64-v8a\libsqlite3.a</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidNativeLibrary>
     <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\ARM64\Debug\libAppEngine.so">
       <Link>lib\arm64-v8a\libAppEngine.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\..\..\vcpkg\buildtrees\sqlite3\arm-android-dbg\libsqlite3.a">
-      <Link>lib\armeabi-v7a\libsqlite3.a</Link>
     </AndroidNativeLibrary>
     <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\ARM\Debug\libAppEngine.so">
       <Link>lib\armeabi-v7a\libAppEngine.so</Link>
