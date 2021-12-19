@@ -5,9 +5,11 @@
 #include <sstream>
 #include "Rule.h"
 #include "SQLiteCppWrapper.h"
-//#include <experimental/filesystem>
 #include "Utils.h"
 #include "BoardCharacteristic.h"
+
+std::unique_ptr<ISQLiteWrapper> sqliteWrapper = nullptr;
+
 
 HandCharacteristic GetHandCharacteristic(const std::string& hand)
 {
@@ -21,7 +23,8 @@ HandCharacteristic GetHandCharacteristic(const std::string& hand)
 
 ISQLiteWrapper* GetSqliteWrapper()
 {
-    static std::unique_ptr<ISQLiteWrapper> sqliteWrapper = std::make_unique<SQLiteCppWrapper>("/data/user/0/app.bidtrainer/files/four_card_majors.db3");
+    if (sqliteWrapper == nullptr)
+        throw std::logic_error("Setup was not called to initialize sqlite database");
     return sqliteWrapper.get();
 }
 
@@ -41,11 +44,7 @@ int GetBidFromRule(Phase phase, const char* hand, int lastBidId, int position, i
 
 int Setup(const char* database)
 {
-    //using std::experimental::filesystem::path;
-
-    //if (!exists(path(database)))
-    //    return -1;
-    GetSqliteWrapper()->SetDatabase(database);
+    sqliteWrapper = std::make_unique<SQLiteCppWrapper>(database);
     return 0;
 }
 

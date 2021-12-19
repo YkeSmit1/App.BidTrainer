@@ -82,7 +82,7 @@ namespace App.BidTrainer.Views
                 if (File.Exists(resultsFileName))
                     results = JsonConvert.DeserializeObject<Results>(File.ReadAllText(resultsFileName));
                 isInitialized = true;
-
+                Pinvoke.Setup(Path.Combine(dataPath, "four_card_majors.db3"));
                 Device.BeginInvokeOnMainThread(async () => await StartLesson());
             }
             catch (Exception e)

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace EngineWrapper
 {
-    public class BidGenerator
+    public static class BidGenerator
     {
         public static (int, Phase, string) GetBid(string handsString, Auction auction, Phase phase)
         {
