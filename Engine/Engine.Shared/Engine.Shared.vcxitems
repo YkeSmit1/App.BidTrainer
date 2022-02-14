@@ -4,7 +4,7 @@
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
     <ItemsProjectGuid>{9d963917-89a4-4099-be48-0dd5a92ebae8}</ItemsProjectGuid>
-    <ItemsProjectName>AppEngine.Shared</ItemsProjectName>
+    <ItemsProjectName>Engine.Shared</ItemsProjectName>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

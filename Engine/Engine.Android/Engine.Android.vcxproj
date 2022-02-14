@@ -37,11 +37,11 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{429c2b45-0cb2-42dd-928b-e03cc1a90dea}</ProjectGuid>
     <Keyword>Android</Keyword>
-    <RootNamespace>AppEngine</RootNamespace>
+    <RootNamespace>Engine</RootNamespace>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <ApplicationType>Android</ApplicationType>
     <ApplicationTypeRevision>3.0</ApplicationTypeRevision>
-    <ProjectName>AppEngine.Android</ProjectName>
+    <ProjectName>Engine.Android</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -95,7 +95,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings" />
   <ImportGroup Label="Shared">
-    <Import Project="..\AppEngine.Shared\AppEngine.Shared.vcxitems" Label="Shared" />
+    <Import Project="..\Engine.Shared\Engine.Shared.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
