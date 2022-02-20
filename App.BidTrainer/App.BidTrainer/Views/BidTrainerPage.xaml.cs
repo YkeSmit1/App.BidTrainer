@@ -31,7 +31,6 @@ namespace App.BidTrainer.Views
         private bool isInitialized = false;
 
         // Bidding
-        private readonly BidManager bidManager = new BidManager();
         private readonly Auction auction = new Auction();
         private readonly Pbn pbn = new Pbn();
         private bool isInHintMode = false;
@@ -102,6 +101,7 @@ namespace App.BidTrainer.Views
             if (e.Modal == startPage)
             {
                 pbn.Load(Path.Combine(dataPath, Lesson.PbnFile));
+                Pinvoke.SetModules(Lesson.Modules);
                 if (CurrentBoardIndex == 0)
                     results.AllResults.Remove(Lesson.LessonNr);
                 await StartNextBoard();
@@ -119,11 +119,11 @@ namespace App.BidTrainer.Views
             if (isInHintMode)
             {
                 currentResult.UsedHint = true;
-                await DisplayAlert("Information", bidManager.GetInformation(bid, auction.currentPosition), "OK");
+                await DisplayAlert("Information", BidManager.GetInformation(bid, auction), "OK");
             }
             else
             {
-                var engineBid = bidManager.GetBid(auction, Deal[Player.South]);
+                var engineBid = BidManager.GetBid(auction, Deal[Player.South]);
                 UpdateBidControls(engineBid);
 
                 if (bid != engineBid)
@@ -183,7 +183,6 @@ namespace App.BidTrainer.Views
             auction.Clear(Dealer);
             AuctionViewModel.UpdateAuction(auction);
             BiddingBoxViewModel.DoBid.RaiseCanExecuteChanged();
-            bidManager.Init();
             StatusLabel.Text = $"Username: {Preferences.Get("Username", "")}\nLesson: {Lesson.LessonNr}\nBoard: {CurrentBoardIndex + 1}";
             startTimeBoard = DateTime.Now;
             currentResult = new Result();
@@ -202,7 +201,7 @@ namespace App.BidTrainer.Views
         {
             while (auction.CurrentPlayer != Player.South && !auction.IsEndOfBidding())
             {
-                var bid = bidManager.GetBid(auction, Deal[auction.CurrentPlayer]);
+                var bid = BidManager.GetBid(auction, Deal[auction.CurrentPlayer]);
                 UpdateBidControls(bid);
             }
 

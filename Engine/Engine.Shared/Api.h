@@ -1,19 +1,8 @@
 #pragma once
 
-enum class Phase
-{
-    Unknown,
-    Opening,
-    OneSuit,
-    OneNT,
-    Stayman,
-    JacobyHearts,
-    JacobySpades,
-    OverCall,
-    TakeOutDbl,
-    OneNTOvercall
-};
-
+/// <summary>
+/// Types of bids deduced from the hand
+/// </summary>
 enum class BidKind
 {
     UnknownSuit,
@@ -22,12 +11,35 @@ enum class BidKind
     LowestSuit,
     HighestSuit,
     PartnersSuit,
-    OpponentsSuit
+};
+
+/// <summary>
+/// Type of bids deduced from the auction
+/// </summary>
+enum class BidKindAuction
+{
+    UnknownSuit,
+    NonReverse,
+    Reverse,
+    OwnSuit,
+    PartnersSuit,
+};
+
+enum class Modules
+{
+    FourCardMajors = 1,
+    FiveCardMajors = 2,
+    TwoBidsAndHigher = 4,
+    NegativeDbl = 8,
+    Reverse = 16,
+    ControlBids = 32,
+    RKC = 64
 };
 
 extern "C" {
-    int GetBidFromRule(Phase phase, const char* hand, int lastBidId, int position,
-        int* minSuitsPartner, int* minSuitsOpener, Phase* newPhase, char* description);
-    void GetRulesByBid(Phase phase, int bidId, int position, char* information);
+    int GetBidFromRule(const char* hand, const char* previousBidding, char* description);
+    void GetRulesByBid(int bidId, const char* previousBidding, char* information);
     int Setup(const char* database);
+    void SetModules(int modules);
+    void GetInformationFromAuction(const char* previousBidding, char* informationFromAuctionjson);
 }

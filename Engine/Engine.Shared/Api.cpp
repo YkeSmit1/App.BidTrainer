@@ -1,12 +1,10 @@
 #include "Api.h"
 
 #include <string>
-#include <iostream>
-#include <sstream>
 #include "Rule.h"
 #include "SQLiteCppWrapper.h"
-#include "Utils.h"
 #include "BoardCharacteristic.h"
+#include "InformationFromAuction.h"
 
 std::unique_ptr<ISQLiteWrapper> sqliteWrapper = nullptr;
 
@@ -28,17 +26,19 @@ ISQLiteWrapper* GetSqliteWrapper()
     return sqliteWrapper.get();
 }
 
-int GetBidFromRule(Phase phase, const char* hand, int lastBidId, int position, int* minSuitsPartner, int* minSuitsOpener, Phase* newPhase, char* description)
-{
+int GetBidFromRule(const char* hand, const char* previousBidding, char* description)
+{    
     auto handCharacteristic = GetHandCharacteristic(hand);
-    auto minSuitsPartnerVec = std::vector<int>(minSuitsPartner, minSuitsPartner + 4);
-    auto opponentsSuits = std::vector<int>(minSuitsOpener, minSuitsOpener + 4);
-    auto boardCharacteristic = BoardCharacteristic::Create(handCharacteristic, minSuitsPartnerVec, opponentsSuits);
+    InformationFromAuction informationFromAuction{ GetSqliteWrapper(), previousBidding};
+    BoardCharacteristic boardCharacteristic{ handCharacteristic, previousBidding, informationFromAuction };
 
-    auto [bidId, lNewfase, descr] = GetSqliteWrapper()->GetRule(handCharacteristic, boardCharacteristic, phase, lastBidId, position);
-    strncpy(description, descr.c_str(), descr.size());
-    description[descr.size()] = '\0';
-    *newPhase = lNewfase;
+    auto isSlambidding = informationFromAuction.isSlamBidding || ((handCharacteristic.Hcp + boardCharacteristic.minHcpPartner >= 29 && boardCharacteristic.hasFit));
+
+    auto [bidId, descr] = !isSlambidding ?
+        GetSqliteWrapper()->GetRule(handCharacteristic, boardCharacteristic, previousBidding) :
+        GetSqliteWrapper()->GetRelativeRule(handCharacteristic, boardCharacteristic, informationFromAuction.previousSlamBidding);
+    assert(descr.size() < 128);
+    strcpy(description, descr.c_str());
     return bidId;
 }
 
@@ -48,15 +48,27 @@ int Setup(const char* database)
     return 0;
 }
 
-void GetBid(int bidId, int& rank, int& suit)
+void GetRulesByBid(int bidId, const char* previousBidding, char* information)
 {
-    GetSqliteWrapper()->GetBid(bidId, rank, suit);
+    InformationFromAuction informationFromAuction{ GetSqliteWrapper(), previousBidding };
+    std::string linformation;
+    if (informationFromAuction.isSlamBidding)
+        linformation = GetSqliteWrapper()->GetRelativeRulesByBid(bidId, informationFromAuction.previousSlamBidding);
+    else
+        linformation = GetSqliteWrapper()->GetRulesByBid(bidId, previousBidding);
+    assert(linformation.size() < 8192);
+    strcpy(information, linformation.c_str());
 }
 
-void GetRulesByBid(Phase phase, int bidId, int position, char* information)
+void SetModules(int modules)
 {
-    auto linformation = GetSqliteWrapper()->GetRulesByBid(phase, bidId, position);
-    strncpy(information, linformation.c_str(), linformation.size());
-    assert(linformation.size() < 8192);
-    information[linformation.size()] = '\0';
+    GetSqliteWrapper()->SetModules(modules);
+}
+
+void GetInformationFromAuction(const char* previousBidding, char* informationFromAuctionjson)
+{
+    InformationFromAuction informationFromAuction{ GetSqliteWrapper(), previousBidding };
+    auto json = informationFromAuction.AsJson();
+    assert(json.size() < 8192);
+    strcpy(informationFromAuctionjson, json.c_str());
 }

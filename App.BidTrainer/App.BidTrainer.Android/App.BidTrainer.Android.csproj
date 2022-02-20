@@ -77,22 +77,26 @@
     <AndroidAsset Include="Assets\data\lesson2.pbn" />
     <AndroidAsset Include="Assets\data\lesson3.pbn" />
     <AndroidAsset Include="Assets\data\lesson4.pbn" />
+    <AndroidAsset Include="Assets\data\lesson5.pbn" />
+    <AndroidAsset Include="Assets\data\lesson6.pbn" />
+    <AndroidAsset Include="Assets\data\lesson7.pbn" />
     <AndroidAsset Include="Assets\data\four_card_majors.db3" />
     <AndroidAsset Include="Assets\data\lessons.json" />
-    <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\x86\Debug\libAppEngine.so">
-      <Link>lib\x86\libAppEngine.so</Link>
+    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\x86\Debug\libEngine.so">
+      <Link>lib\x86\libEngine.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\x64\Debug\libAppEngine.so">
-      <Link>lib\x86_64\libAppEngine.so</Link>
+    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\x64\Debug\libEngine.so">
+      <Link>lib\x86_64\libEngine.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\ARM64\Debug\libAppEngine.so">
-      <Link>lib\arm64-v8a\libAppEngine.so</Link>
+    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\ARM64\Debug\libEngine.so">
+      <Link>lib\arm64-v8a\libEngine.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\..\AppEngine\AppEngine.Android\ARM\Debug\libAppEngine.so">
-      <Link>lib\armeabi-v7a\libAppEngine.so</Link>
+    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\ARM\Debug\libEngine.so">
+      <Link>lib\armeabi-v7a\libEngine.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
     <None Include="..\..\.editorconfig">
       <Link>.editorconfig</Link>

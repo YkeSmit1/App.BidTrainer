@@ -130,6 +130,7 @@
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <AdditionalIncludeDirectories>..\..\thirdparty\sqlite\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
@@ -143,6 +144,7 @@
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <AdditionalIncludeDirectories>..\..\thirdparty\sqlite\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
@@ -156,6 +158,7 @@
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <AdditionalIncludeDirectories>..\..\thirdparty\sqlite\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
@@ -169,6 +172,7 @@
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <AdditionalIncludeDirectories>..\..\thirdparty\sqlite\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
@@ -182,6 +186,7 @@
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <AdditionalIncludeDirectories>..\..\thirdparty\sqlite\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
@@ -195,6 +200,7 @@
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <AdditionalIncludeDirectories>..\..\thirdparty\sqlite\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
@@ -208,6 +214,7 @@
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
       <ExceptionHandling>Enabled</ExceptionHandling>
+      <AdditionalIncludeDirectories>..\..\thirdparty\sqlite\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
@@ -221,6 +228,7 @@
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
       <ExceptionHandling>Enabled</ExceptionHandling>
+      <AdditionalIncludeDirectories>..\..\thirdparty\sqlite\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lm</AdditionalOptions>
