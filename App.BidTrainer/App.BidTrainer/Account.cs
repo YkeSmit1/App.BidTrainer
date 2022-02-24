@@ -6,10 +6,10 @@ namespace App.BidTrainer
 {
     public struct Account
     {
-        public string id { get; set; }
-        public string username { get; set; }
-        public int numberOfBoardsPlayed { get; set; }
-        public int numberOfCorrectBoards { get; set; }
-        public TimeSpan timeElapsed { get; set; }
+        public string Id { get; set; }
+        public string Username { get; set; }
+        public int NumberOfBoardsPlayed { get; set; }
+        public int NumberOfCorrectBoards { get; set; }
+        public TimeSpan TimeElapsed { get; set; }
     }
 }

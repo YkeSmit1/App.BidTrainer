@@ -34,7 +34,7 @@ namespace App.BidTrainer.Views
             if (Preferences.Get("Username", "") != settingsViewModel.Username)
             {
                 var account = await DependencyService.Get<ICosmosDBHelper>().GetAccount(settingsViewModel.Username);
-                if (account.Value.id != null)
+                if (account.Value.Id != null)
                 {
                     await DisplayAlert("Error", "Username already exists", "OK");
                     return;

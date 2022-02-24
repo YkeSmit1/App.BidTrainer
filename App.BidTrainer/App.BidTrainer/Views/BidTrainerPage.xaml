@@ -68,11 +68,11 @@
                        HorizontalTextAlignment="Center"/>
             </StackLayout>
             <StackLayout Grid.Row="5" Orientation="Horizontal" BackgroundColor="SeaGreen">
-                <Button Text="NextBoard" Clicked="Button_Clicked_1" ImageSource="icons8_next_32.png" Style="{StaticResource Key=ToolbarButton}"/>
-                <Button Text="Lesson" Clicked="Button_Clicked" ImageSource="icons8_flashcards_32.png" Style="{StaticResource Key=ToolbarButton}"/>
-                <Button Text="Results" Clicked="Button_Clicked_2" ImageSource="icons8_regular_document_32.png" Style="{StaticResource Key=ToolbarButton}"/>
-                <Button Text="Leaderboard" Clicked="Button_Clicked_4" ImageSource="icons8_leaderboard_32.png" Style="{StaticResource Key=ToolbarButton}"/>
-                <Button Text="Settings" Clicked="Button_Clicked_5" ImageSource="icons8_settings_32.png" Style="{StaticResource Key=ToolbarButton}"/>
+                <Button Text="NextBoard" Clicked="ButtonClickedNextBoard" ImageSource="icons8_next_32.png" Style="{StaticResource Key=ToolbarButton}"/>
+                <Button Text="Lesson" Clicked="ButtonClickedStartLesson" ImageSource="icons8_flashcards_32.png" Style="{StaticResource Key=ToolbarButton}"/>
+                <Button Text="Results" Clicked="ButtonClickedResults" ImageSource="icons8_regular_document_32.png" Style="{StaticResource Key=ToolbarButton}"/>
+                <Button Text="Leaderboard" Clicked="ButtonClickedLeaderBoard" ImageSource="icons8_leaderboard_32.png" Style="{StaticResource Key=ToolbarButton}"/>
+                <Button Text="Settings" Clicked="ButtonClickedSettings" ImageSource="icons8_settings_32.png" Style="{StaticResource Key=ToolbarButton}"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

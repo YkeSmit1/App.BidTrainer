@@ -38,7 +38,7 @@ namespace App.BidTrainer.Droid
         public async Task<Account?> GetAccount(string username)
         {
             var account = await client.CreateDocumentQuery<Account>(collectionLink, feedOptions).
-                Where(x => x.username == username).AsDocumentQuery().ExecuteNextAsync<Account>();
+                Where(x => x.Username == username).AsDocumentQuery().ExecuteNextAsync<Account>();
             return account.FirstOrDefault();
         }
 

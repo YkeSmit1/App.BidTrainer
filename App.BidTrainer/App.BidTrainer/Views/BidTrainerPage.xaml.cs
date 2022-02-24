@@ -164,6 +164,7 @@ namespace App.BidTrainer.Views
                 {
                     CurrentLesson++;
                     pbn.Load(Path.Combine(dataPath, Lesson.PbnFile));
+                    Pinvoke.SetModules(Lesson.Modules);
                 }
                 else
                 {
@@ -233,22 +234,22 @@ namespace App.BidTrainer.Views
             {
                 var account = new Account
                 {
-                    username = username,
-                    numberOfBoardsPlayed = boardPlayed,
-                    numberOfCorrectBoards = correctBoards,
-                    timeElapsed = new TimeSpan(timeElapsed)
+                    Username = username,
+                    NumberOfBoardsPlayed = boardPlayed,
+                    NumberOfCorrectBoards = correctBoards,
+                    TimeElapsed = new TimeSpan(timeElapsed)
                 };
 
                 var cosmosDBHelper = DependencyService.Get<ICosmosDBHelper>();
                 var user = await cosmosDBHelper.GetAccount(username);
                 if (user == null)
                 {
-                    account.id = Guid.NewGuid().ToString();
+                    account.Id = Guid.NewGuid().ToString();
                     await cosmosDBHelper.InsertAccount(account);
                 }
                 else
                 {
-                    account.id = user.Value.id;
+                    account.Id = user.Value.Id;
                     await cosmosDBHelper.UpdateAccount(account);
                 }
             }
@@ -260,30 +261,30 @@ namespace App.BidTrainer.Views
             Application.Current.MainPage.Navigation.PushAsync(resultsPage);
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void ButtonClickedStartLesson(object sender, EventArgs e)
         {
             await StartLesson();
         }
 
-        private async void Button_Clicked_1(object sender, EventArgs e)
+        private async void ButtonClickedNextBoard(object sender, EventArgs e)
         {
             CurrentBoardIndex++;
             await StartNextBoard();
         }
 
-        private void Button_Clicked_2(object sender, EventArgs e)
+        private void ButtonClickedResults(object sender, EventArgs e)
         {
             ShowReport();
         }
 
-        private async void Button_Clicked_4(object sender, EventArgs e)
+        private async void ButtonClickedLeaderBoard(object sender, EventArgs e)
         {
             var accounts = await DependencyService.Get<ICosmosDBHelper>().GetAllAccounts();
-            var leaderboardPage = new LeaderboardPage(accounts.OrderByDescending(x => (double)x.numberOfCorrectBoards / x.numberOfBoardsPlayed));
+            var leaderboardPage = new LeaderboardPage(accounts.OrderByDescending(x => (double)x.NumberOfCorrectBoards / x.NumberOfBoardsPlayed));
             await Application.Current.MainPage.Navigation.PushAsync(leaderboardPage);
         }
 
-        private async void Button_Clicked_5(object sender, EventArgs e)
+        private async void ButtonClickedSettings(object sender, EventArgs e)
         {
             await Application.Current.MainPage.Navigation.PushAsync(settingsPage);
         }
