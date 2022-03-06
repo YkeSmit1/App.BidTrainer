@@ -13,8 +13,8 @@
             <Setter Property="BackgroundColor" Value="Transparent"/>
             <Setter Property="Background" Value="SeaGreen"/>
             <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="WidthRequest" Value="65"/>
-            <Setter Property="HeightRequest" Value="60"/>
+            <Setter Property="WidthRequest" Value="70"/>
+            <Setter Property="HeightRequest" Value="65"/>
             <Setter Property="ContentLayout" Value="Top,0"/>
             <Setter Property="TextTransform" Value="None"/>
         </Style>
@@ -67,7 +67,7 @@
                 <Label Text="South" FontSize="Micro" FontAttributes="Bold" 
                        HorizontalTextAlignment="Center"/>
             </StackLayout>
-            <StackLayout Grid.Row="5" Orientation="Horizontal" BackgroundColor="SeaGreen">
+            <StackLayout Grid.Row="5" Orientation="Horizontal" BackgroundColor="SeaGreen" Padding="10">
                 <Button Text="NextBoard" Clicked="ButtonClickedNextBoard" ImageSource="icons8_next_32.png" Style="{StaticResource Key=ToolbarButton}"/>
                 <Button Text="Lesson" Clicked="ButtonClickedStartLesson" ImageSource="icons8_flashcards_32.png" Style="{StaticResource Key=ToolbarButton}"/>
                 <Button Text="Results" Clicked="ButtonClickedResults" ImageSource="icons8_regular_document_32.png" Style="{StaticResource Key=ToolbarButton}"/>

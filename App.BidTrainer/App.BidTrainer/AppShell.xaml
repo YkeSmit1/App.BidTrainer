@@ -26,6 +26,15 @@
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Gray"></Setter>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="LightGray"></Setter>
+            </Style>
+            <Style TargetType="RadioButton">
+                <Setter Property="TextColor" Value="Gray"></Setter>
+            </Style>
 
             <!--
             Default Styles for all Flyout Items

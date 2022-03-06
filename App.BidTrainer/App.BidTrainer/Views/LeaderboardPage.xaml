@@ -9,16 +9,16 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <dg:DataGrid ItemsSource="{Binding Accounts}" 
-                         RowHeight="70" HeaderHeight="50" 
+            <dg:DataGrid ItemsSource="{Binding Accounts}"
+                         RowHeight="30" HeaderHeight="50" 
                          BorderColor="#CCCCCC" HeaderBackground="#E0E6F8"
                          HeaderFontSize="11"
                          FontSize="9">
                 <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="Name" PropertyName="username" HorizontalContentAlignment="Start" />
-                    <dg:DataGridColumn Title="Boards played" PropertyName="numberOfBoardsPlayed" HorizontalContentAlignment="End"/>
-                    <dg:DataGridColumn Title="Correct boards" PropertyName="numberOfCorrectBoards" HorizontalContentAlignment="End"/>
-                    <dg:DataGridColumn Title="Time spent" PropertyName="timeElapsed" StringFormat="'{0:h\:mm\:ss}'" HorizontalContentAlignment="End"/>
+                    <dg:DataGridColumn Title="Name" PropertyName="Username" HorizontalContentAlignment="Start"/>
+                    <dg:DataGridColumn Title="Boards played" PropertyName="NumberOfBoardsPlayed" HorizontalContentAlignment="Center"/>
+                    <dg:DataGridColumn Title="Correct boards" PropertyName="NumberOfCorrectBoards" HorizontalContentAlignment="Center"/>
+                    <dg:DataGridColumn Title="Time spent" PropertyName="TimeElapsed" StringFormat="{}{0:h\:mm\:ss}" HorizontalContentAlignment="Center"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
         </StackLayout>
