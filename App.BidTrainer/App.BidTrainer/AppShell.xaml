@@ -27,7 +27,7 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="Label">
-                <Setter Property="TextColor" Value="Gray"></Setter>
+                <Setter Property="TextColor" Value="Black"></Setter>
             </Style>
             <Style TargetType="Entry">
                 <Setter Property="PlaceholderColor" Value="LightGray"></Setter>
@@ -87,9 +87,9 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-    <TabBar Title="BidTrainer" Icon="icon_feed.png">
-        <ShellContent Route="BidTrainerPage" ContentTemplate="{DataTemplate local:BidTrainerPage}" />
-    </TabBar>
+    <ShellContent Route="StartPage" ContentTemplate="{DataTemplate local:StartPage}"/>
+    <ShellContent Route="BidTrainerPage" ContentTemplate="{DataTemplate local:BidTrainerPage}"/>
+
     <!--<FlyoutItem Title="About" Icon="icon_about.png">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>-->

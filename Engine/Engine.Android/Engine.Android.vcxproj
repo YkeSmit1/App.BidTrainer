@@ -125,8 +125,6 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
@@ -139,8 +137,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
@@ -153,8 +149,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
@@ -167,8 +161,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
@@ -181,8 +173,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
@@ -195,8 +185,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
@@ -209,8 +197,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
       <ExceptionHandling>Enabled</ExceptionHandling>
@@ -223,8 +209,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>-D PLATFORM=0 %(AdditionalOptions)</AdditionalOptions>
       <CppLanguageStandard>c++1z</CppLanguageStandard>
       <ExceptionHandling>Enabled</ExceptionHandling>
@@ -237,7 +221,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Api.h" />
-    <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

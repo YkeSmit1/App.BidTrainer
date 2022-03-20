@@ -1,9 +1,11 @@
-﻿using MvvmHelpers;
+﻿using App.BidTrainer.Views;
+using MvvmHelpers;
 using MvvmHelpers.Commands;
 using MvvmHelpers.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,25 +16,27 @@ namespace App.BidTrainer.ViewModels
 {
     public class StartViewModel : ObservableObject
     {
-        public StartViewModel()
-        {
-            var dataPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            Lessons = JsonConvert.DeserializeObject<List<Lesson>>(File.ReadAllText(Path.Combine(dataPath, "lessons.json")));
-        }
-        public List<Lesson> Lessons { get; set; }
+        public ObservableCollection<Lesson> Lessons { get; set; }
         public IAsyncCommand<int> StartLessonCommand { get; set; } = new AsyncCommand<int>(ChooseLesson);
         public IAsyncCommand ContinueWhereLeftOffCommand { get; set; } = new AsyncCommand(ContinueWhereLeftOff);
+
+        public async Task LoadLessonsAsync()
+        {
+            var dataPath = await DependencyService.Get<BidTrainerPage.IFileAccessHelper>().GetDataPathAsync();
+            Lessons = JsonConvert.DeserializeObject<ObservableCollection<Lesson>>(await File.ReadAllTextAsync(Path.Combine(dataPath, "lessons.json")));
+            OnPropertyChanged("Lessons");
+        }
 
         private static async Task ChooseLesson(int lessonNr)
         {
             Preferences.Set("CurrentLesson", lessonNr);
             Preferences.Set("CurrentBoardIndex", 0);
-            await Application.Current.MainPage.Navigation.PopModalAsync();
+            await Shell.Current.GoToAsync("//BidTrainerPage");
         }
 
         private static async Task ContinueWhereLeftOff()
         {
-            await Application.Current.MainPage.Navigation.PopModalAsync();
+            await Shell.Current.GoToAsync("//BidTrainerPage");
         }
     }
 }

@@ -12,13 +12,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 [assembly: Xamarin.Forms.Dependency(typeof(FileAccessHelper))]
 namespace App.BidTrainer.Droid
 {
     public class FileAccessHelper : BidTrainerPage.IFileAccessHelper
     {
-        public string GetDataPath()
+        public async Task<string> GetDataPathAsync()
         {
             var docFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             using (var assets = Application.Context.Assets)
@@ -27,7 +28,7 @@ namespace App.BidTrainer.Droid
                 {
                     using var writeStream = new FileStream(Path.Combine(docFolder, file), FileMode.Create, FileAccess.Write);
                     using var stream = assets.Open(Path.Combine("data", file));
-                    stream.CopyTo(writeStream);
+                    await stream.CopyToAsync(writeStream);
                 }
             }
             return docFolder;

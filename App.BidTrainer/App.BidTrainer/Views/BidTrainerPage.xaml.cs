@@ -22,13 +22,12 @@ namespace App.BidTrainer.Views
     {
         public interface IFileAccessHelper
         {
-            string GetDataPath();
+            Task<string> GetDataPathAsync();
         }
 
-        private readonly string dataPath = DependencyService.Get<IFileAccessHelper>().GetDataPath();
+        private readonly string dataPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         private readonly StartPage startPage = new StartPage();
         private readonly SettingsPage settingsPage = new SettingsPage();
-        private bool isInitialized = false;
 
         // Bidding
         private readonly Auction auction = new Auction();
@@ -65,24 +64,23 @@ namespace App.BidTrainer.Views
         public BidTrainerPage()
         {
             InitializeComponent();
-            Task.Run(() => Start());
+            Application.Current.ModalPopping += PopModel;
+            BiddingBoxViewModel.DoBid = new AsyncCommand<object>(ClickBiddingBoxButton, ButtonCanExecute);
+            AuctionViewModel.Auction = auction;
         }
-
         private async Task Start()
         {
             try
             {
-                Application.Current.ModalPopping += PopModel;
                 var lessonsFileName = Path.Combine(dataPath, "lessons.json");
-                lessons = JsonConvert.DeserializeObject<List<Lesson>>(File.ReadAllText(lessonsFileName));
-                BiddingBoxViewModel.DoBid = new AsyncCommand<object>(ClickBiddingBoxButton, ButtonCanExecute);
-                AuctionViewModel.Auction = auction;
+                lessons = JsonConvert.DeserializeObject<List<Lesson>>(await File.ReadAllTextAsync(lessonsFileName));
                 var resultsFileName = Path.Combine(dataPath, "results.json");
                 if (File.Exists(resultsFileName))
-                    results = JsonConvert.DeserializeObject<Results>(File.ReadAllText(resultsFileName));
-                isInitialized = true;
+                    results = JsonConvert.DeserializeObject<Results>(await File.ReadAllTextAsync(resultsFileName));
                 Pinvoke.Setup(Path.Combine(dataPath, "four_card_majors.db3"));
-                Device.BeginInvokeOnMainThread(async () => await StartLesson());
+
+                await StartLessonAsync();
+                await StartNextBoard();
             }
             catch (Exception e)
             {
@@ -91,26 +89,27 @@ namespace App.BidTrainer.Views
             }
         }
 
-        public async Task StartLesson()
-        {
-            await Application.Current.MainPage.Navigation.PushModalAsync(startPage);
-        }
-
         private async void PopModel(object sender, ModalPoppingEventArgs e)
         {
             if (e.Modal == startPage)
             {
-                pbn.Load(Path.Combine(dataPath, Lesson.PbnFile));
-                Pinvoke.SetModules(Lesson.Modules);
-                if (CurrentBoardIndex == 0)
-                    results.AllResults.Remove(Lesson.LessonNr);
+                await StartLessonAsync();
                 await StartNextBoard();
             }
             else if (e.Modal == settingsPage)
             {
                 ((SettingsViewModel)settingsPage.BindingContext).Save();
+                Device.BeginInvokeOnMainThread(() =>
+                    StatusLabel.Text = $"Username: {Preferences.Get("Username", "")}\nLesson: {Lesson.LessonNr}\nBoard: {CurrentBoardIndex + 1}");
             }
+        }
 
+        private async Task StartLessonAsync()
+        {
+            await pbn.LoadAsync(Path.Combine(dataPath, Lesson.PbnFile));
+            Pinvoke.SetModules(Lesson.Modules);
+            if (CurrentBoardIndex == 0)
+                results.AllResults.Remove(Lesson.LessonNr);
         }
 
         private async Task ClickBiddingBoxButton(object parameter)
@@ -163,8 +162,7 @@ namespace App.BidTrainer.Views
                 if (Lesson.LessonNr != lessons.Last().LessonNr)
                 {
                     CurrentLesson++;
-                    pbn.Load(Path.Combine(dataPath, Lesson.PbnFile));
-                    Pinvoke.SetModules(Lesson.Modules);
+                    await StartLessonAsync();
                 }
                 else
                 {
@@ -175,16 +173,17 @@ namespace App.BidTrainer.Views
                     return;
                 }
             }
+            Device.BeginInvokeOnMainThread(() =>
+                StatusLabel.Text = $"Username: {Preferences.Get("Username", "")}\nLesson: {Lesson.LessonNr}\nBoard: {CurrentBoardIndex + 1}");
+            ShowBothHands();
             await StartBidding();
         }
 
         private async Task StartBidding()
         {
-            ShowBothHands();
             auction.Clear(Dealer);
             AuctionViewModel.UpdateAuction(auction);
             BiddingBoxViewModel.DoBid.RaiseCanExecuteChanged();
-            StatusLabel.Text = $"Username: {Preferences.Get("Username", "")}\nLesson: {Lesson.LessonNr}\nBoard: {CurrentBoardIndex + 1}";
             startTimeBoard = DateTime.Now;
             currentResult = new Result();
             await BidTillSouth();
@@ -194,8 +193,8 @@ namespace App.BidTrainer.Views
         {
             var alternateSuits = Preferences.Get("AlternateSuits", true);
             var cardProfile = Preferences.Get("CardImageSettings", "default");
-            Task.Run(() => HandViewModelNorth.ShowHand(Deal[Player.North], alternateSuits, cardProfile));
-            Task.Run(() => HandViewModelSouth.ShowHand(Deal[Player.South], alternateSuits, cardProfile));
+            HandViewModelNorth.ShowHand(Deal[Player.North], alternateSuits, cardProfile);
+            HandViewModelSouth.ShowHand(Deal[Player.South], alternateSuits, cardProfile);
         }
 
         private async Task BidTillSouth()
@@ -263,7 +262,7 @@ namespace App.BidTrainer.Views
 
         private async void ButtonClickedStartLesson(object sender, EventArgs e)
         {
-            await StartLesson();
+            await Application.Current.MainPage.Navigation.PushAsync(startPage);
         }
 
         private async void ButtonClickedNextBoard(object sender, EventArgs e)
@@ -289,14 +288,10 @@ namespace App.BidTrainer.Views
             await Application.Current.MainPage.Navigation.PushAsync(settingsPage);
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if (isInitialized)
-            {
-                StatusLabel.Text = $"Username: {Preferences.Get("Username", "")}\nLesson: {Lesson.LessonNr}\nBoard: {CurrentBoardIndex + 1}";
-                ShowBothHands();
-            }
+            await Start();
         }
 
         private void Switch_Toggled(object sender, ToggledEventArgs e)

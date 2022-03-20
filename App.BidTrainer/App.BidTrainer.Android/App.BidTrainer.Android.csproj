@@ -87,19 +87,15 @@
     <AndroidAsset Include="Assets\data\lessons.json" />
     <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\x86\Debug\libEngine.so">
       <Link>lib\x86\libEngine.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
     <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\x64\Debug\libEngine.so">
       <Link>lib\x86_64\libEngine.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
     <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\ARM64\Debug\libEngine.so">
       <Link>lib\arm64-v8a\libEngine.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
     <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\ARM\Debug\libEngine.so">
       <Link>lib\armeabi-v7a\libEngine.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidNativeLibrary>
     <None Include="..\..\.editorconfig">
       <Link>.editorconfig</Link>
