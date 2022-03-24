@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.BidTrainer.Android", "App.BidTrainer\App.BidTrainer.Android\App.BidTrainer.Android.csproj", "{EA163588-0D52-45B1-9789-50B92C1A0829}"
-	ProjectSection(ProjectDependencies) = postProject
-		{429C2B45-0CB2-42DD-928B-E03CC1A90DEA} = {429C2B45-0CB2-42DD-928B-E03CC1A90DEA}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.BidTrainer", "App.BidTrainer\App.BidTrainer\App.BidTrainer.csproj", "{68A20BD2-4F07-431A-A313-07E46BAEFDDD}"
 	ProjectSection(ProjectDependencies) = postProject

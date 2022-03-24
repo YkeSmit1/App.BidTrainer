@@ -5,51 +5,63 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using App.BidTrainer.Droid;
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using App.BidTrainer;
+using Microsoft.Azure.Cosmos;
 
 [assembly: Xamarin.Forms.Dependency(typeof(CosmosDBHelper))]
 namespace App.BidTrainer.Droid
 {
     public class CosmosDBHelper : ICosmosDBHelper
     {
-        private static readonly DocumentClient client = new DocumentClient(new Uri(Constants.EndpointUri), Constants.PrimaryKey);
-        private static readonly Uri collectionLink = UriFactory.CreateDocumentCollectionUri(Constants.DatabaseName, Constants.CollectionName);
-        private static readonly FeedOptions feedOptions = new FeedOptions() { EnableCrossPartitionQuery = true };
-
         public async Task<IEnumerable<Account>> GetAllAccounts()
         {
             var accounts = new List<Account>();
-            var query = client.CreateDocumentQuery<Account>(collectionLink, feedOptions).AsDocumentQuery();
-            while (query.HasMoreResults)
+
+            var queryDefinition = new QueryDefinition("select * from c");
+            using var query = GetContainer().GetItemQueryIterator<Account>(queryDefinition);
             {
-                accounts.AddRange(await query.ExecuteNextAsync<Account>());
+                while (query.HasMoreResults)
+                {
+                    accounts.AddRange(await query.ReadNextAsync());
+                }
             }
             return accounts;
         }
 
         public async Task<Account?> GetAccount(string username)
         {
-            var account = await client.CreateDocumentQuery<Account>(collectionLink, feedOptions).
-                Where(x => x.Username == username).AsDocumentQuery().ExecuteNextAsync<Account>();
-            return account.FirstOrDefault();
+            var querydefinition = new QueryDefinition($"select * from c where c.username = '{username}'");
+            using var query = GetContainer().GetItemQueryIterator<Account>(querydefinition);
+            while (query.HasMoreResults)
+            {
+                var account = await query.ReadNextAsync();
+                if (account.Count != 0)
+                    return account.First();
+            }
+
+            return null;
         }
 
         public async Task InsertAccount(Account account)
         {
-            await client.CreateDocumentAsync(collectionLink, account);
+            await GetContainer().CreateItemAsync(account);
         }
 
         public async Task UpdateAccount(Account account)
         {
-            await client.UpsertDocumentAsync(collectionLink, account);
+            await GetContainer().UpsertItemAsync(account);
         }
+
+        private static Container GetContainer()
+        {
+            var client = new CosmosClient(Constants.EndpointUri, Constants.PrimaryKey,
+                new CosmosClientOptions { ApplicationRegion = Regions.WestEurope, });
+            return client.GetContainer(Constants.DatabaseName, Constants.CollectionName);
+        }
+
     }
 }

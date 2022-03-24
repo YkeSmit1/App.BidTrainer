@@ -212,7 +212,7 @@ namespace App.BidTrainer.Views
                 currentResult.TimeElapsed = DateTime.Now - startTimeBoard;
                 await DisplayAlert("Info", $"Hand is done. Contract:{auction.currentContract}", "OK");
                 results.AddResult(Lesson.LessonNr, CurrentBoardIndex, currentResult);
-                UploadResults();
+                await UploadResultsAsync();
                 CurrentBoardIndex++;
                 File.WriteAllText(Path.Combine(dataPath, "results.json"), JsonConvert.SerializeObject(results, Formatting.Indented));
 
@@ -220,35 +220,35 @@ namespace App.BidTrainer.Views
             }
         }
 
-        private void UploadResults()
+        private async Task UploadResultsAsync()
         {
             var username = Preferences.Get("Username", "");
             if (username != "")
             {
                 var res = results.AllResults.Values.SelectMany(x => x.Results.Values);
-                Task.Run(() => UpdateOrCreateAccount(username, res.Count(), res.Count(x => x.AnsweredCorrectly), res.Sum(x => x.TimeElapsed.Ticks)));
+                await UpdateOrCreateAccount(username, res.Count(), res.Count(x => x.AnsweredCorrectly), res.Sum(x => x.TimeElapsed.Ticks));
             }
 
             static async Task UpdateOrCreateAccount(string username, int boardPlayed, int correctBoards, long timeElapsed)
             {
                 var account = new Account
                 {
-                    Username = username,
-                    NumberOfBoardsPlayed = boardPlayed,
-                    NumberOfCorrectBoards = correctBoards,
-                    TimeElapsed = new TimeSpan(timeElapsed)
+                    username = username,
+                    numberOfBoardsPlayed = boardPlayed,
+                    numberOfCorrectBoards = correctBoards,
+                    timeElapsed = new TimeSpan(timeElapsed)
                 };
 
                 var cosmosDBHelper = DependencyService.Get<ICosmosDBHelper>();
                 var user = await cosmosDBHelper.GetAccount(username);
                 if (user == null)
                 {
-                    account.Id = Guid.NewGuid().ToString();
+                    account.id = Guid.NewGuid().ToString();
                     await cosmosDBHelper.InsertAccount(account);
                 }
                 else
                 {
-                    account.Id = user.Value.Id;
+                    account.id = user.Value.id;
                     await cosmosDBHelper.UpdateAccount(account);
                 }
             }
@@ -279,13 +279,13 @@ namespace App.BidTrainer.Views
         private async void ButtonClickedLeaderBoard(object sender, EventArgs e)
         {
             var accounts = await DependencyService.Get<ICosmosDBHelper>().GetAllAccounts();
-            var leaderboardPage = new LeaderboardPage(accounts.OrderByDescending(x => (double)x.NumberOfCorrectBoards / x.NumberOfBoardsPlayed));
+            var leaderboardPage = new LeaderboardPage(accounts.OrderByDescending(x => (double)x.numberOfCorrectBoards / x.numberOfBoardsPlayed));
             await Application.Current.MainPage.Navigation.PushAsync(leaderboardPage);
         }
 
         private async void ButtonClickedSettings(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushAsync(settingsPage);
+            await Application.Current.MainPage.Navigation.PushModalAsync(settingsPage);
         }
 
         protected override async void OnAppearing()

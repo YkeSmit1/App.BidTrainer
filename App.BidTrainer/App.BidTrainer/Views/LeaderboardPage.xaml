@@ -15,10 +15,10 @@
                          HeaderFontSize="11"
                          FontSize="9">
                 <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="Name" PropertyName="Username" HorizontalContentAlignment="Start"/>
-                    <dg:DataGridColumn Title="Boards played" PropertyName="NumberOfBoardsPlayed" HorizontalContentAlignment="Center"/>
-                    <dg:DataGridColumn Title="Correct boards" PropertyName="NumberOfCorrectBoards" HorizontalContentAlignment="Center"/>
-                    <dg:DataGridColumn Title="Time spent" PropertyName="TimeElapsed" StringFormat="{}{0:h\:mm\:ss}" HorizontalContentAlignment="Center"/>
+                    <dg:DataGridColumn Title="Name" PropertyName="username" HorizontalContentAlignment="Start"/>
+                    <dg:DataGridColumn Title="Boards played" PropertyName="numberOfBoardsPlayed" HorizontalContentAlignment="Center"/>
+                    <dg:DataGridColumn Title="Correct boards" PropertyName="numberOfCorrectBoards" HorizontalContentAlignment="Center"/>
+                    <dg:DataGridColumn Title="Time spent" PropertyName="timeElapsed" StringFormat="{}{0:h\:mm\:ss}" HorizontalContentAlignment="Center"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
         </StackLayout>
