@@ -9,6 +9,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
+            <!-- ReSharper disable once ObsoleteElementError -->
             <dg:DataGrid ItemsSource="{Binding Accounts}"
                          RowHeight="30" HeaderHeight="50" 
                          BorderColor="#CCCCCC" HeaderBackground="#E0E6F8"
