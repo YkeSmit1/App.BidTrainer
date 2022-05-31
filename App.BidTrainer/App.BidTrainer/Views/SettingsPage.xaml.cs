@@ -1,10 +1,5 @@
 ﻿using App.BidTrainer.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,13 +7,13 @@ using Xamarin.Forms.Xaml;
 namespace App.BidTrainer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SettingsPage : ContentPage
+    public partial class SettingsPage
     {
         public SettingsPage()
         {
             InitializeComponent();
-            imageDefault.Source = ImageSource.FromResource("App.BidTrainer.Resources.cardfaces.png", typeof(SettingsPage).GetTypeInfo().Assembly);
-            imageBbo.Source = ImageSource.FromResource("App.BidTrainer.Resources.cardfaces2.jpg", typeof(SettingsPage).GetTypeInfo().Assembly);
+            ImageDefault.Source = ImageSource.FromResource("App.BidTrainer.Resources.cardfaces.png", typeof(SettingsPage).GetTypeInfo().Assembly);
+            ImageBbo.Source = ImageSource.FromResource("App.BidTrainer.Resources.cardfaces2.jpg", typeof(SettingsPage).GetTypeInfo().Assembly);
         }
 
         protected override void OnAppearing()
@@ -33,7 +28,7 @@ namespace App.BidTrainer.Views
             var settingsViewModel = (SettingsViewModel)BindingContext;
             if (Preferences.Get("Username", "") != settingsViewModel.Username)
             {
-                var account = await DependencyService.Get<ICosmosDBHelper>().GetAccount(settingsViewModel.Username);
+                var account = await DependencyService.Get<ICosmosDbHelper>().GetAccount(settingsViewModel.Username);
                 if (account != null)
                 {
                     await DisplayAlert("Error", "Username already exists", "OK");

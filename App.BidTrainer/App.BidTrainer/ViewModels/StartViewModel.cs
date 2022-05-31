@@ -3,11 +3,8 @@ using MvvmHelpers;
 using MvvmHelpers.Commands;
 using MvvmHelpers.Interfaces;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -24,7 +21,7 @@ namespace App.BidTrainer.ViewModels
         {
             var dataPath = await DependencyService.Get<BidTrainerPage.IFileAccessHelper>().GetDataPathAsync();
             Lessons = JsonConvert.DeserializeObject<ObservableCollection<Lesson>>(await File.ReadAllTextAsync(Path.Combine(dataPath, "lessons.json")));
-            OnPropertyChanged("Lessons");
+            OnPropertyChanged(nameof(Lessons));
         }
 
         private static async Task ChooseLesson(int lessonNr)

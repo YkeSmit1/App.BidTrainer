@@ -3,20 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EngineWrapper
 {
     public class BidInformation
     {
-        public bool HasInformation { get; set; }
-        public Dictionary<string, int> minRecords;
-        public Dictionary<string, int> maxRecords;
-        public List<int> ids;
-        public List<bool?> controls;
-        public List<int> possibleKeyCards;
-        public bool? trumpQueen;
-
+        private bool HasInformation { get; }
+        private readonly Dictionary<string, int> minRecords;
+        private readonly Dictionary<string, int> maxRecords;
+        // ReSharper disable once NotAccessedField.Local
+        private readonly List<int> ids;
+        private readonly List<bool?> controls;
+        private readonly List<int> possibleKeyCards;
+        private readonly bool? trumpQueen;
+            
         public BidInformation(List<Dictionary<string, string>> records)
         {
             HasInformation = records.Any();
@@ -30,7 +30,7 @@ namespace EngineWrapper
 
             bool? GetHasProperty(string fieldName)
             {
-                var recordsWithValue = records.SelectMany(x => x).Where(x => x.Key == fieldName && !string.IsNullOrWhiteSpace(x.Value));
+                var recordsWithValue = records.SelectMany(x => x).Where(x => x.Key == fieldName && !string.IsNullOrWhiteSpace(x.Value)).ToList();
                 var p = !recordsWithValue.Any() ? null : (bool?)(int.Parse(recordsWithValue.FirstOrDefault().Value) == 1);
                 return p;
             }
@@ -51,12 +51,12 @@ namespace EngineWrapper
             {
                 if (controls.All(x => x is null))
                     return "";
-                var stringbuilder = new StringBuilder();
-                stringbuilder.Append($"\nControls: ");
+                var stringBuilder = new StringBuilder();
+                stringBuilder.Append("\nControls: ");
                 foreach (var suit in Enum.GetValues(typeof(Suit)).Cast<Suit>().Except(new[] { Suit.NoTrump }))
                     if (controls[3 - (int)suit].GetValueOrDefault())
-                        stringbuilder.Append(suit);
-                return stringbuilder.ToString();
+                        stringBuilder.Append(suit);
+                return stringBuilder.ToString();
             }
 
             string GetKeyCardsAsText()

@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:views="clr-namespace:App.BidTrainer.Views" 
+             xmlns:viewModels="clr-namespace:App.BidTrainer.ViewModels;assembly=App.BidTrainer"
              xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              x:Class="App.BidTrainer.Views.LeaderboardPage">
     <ContentPage.BindingContext>
-        <views:LeaderboardViewModel/>
+        <viewModels:LeaderboardViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>

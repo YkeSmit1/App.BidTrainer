@@ -1,8 +1,8 @@
-﻿using Common;
+﻿using System;
+using Common;
 using MoreLinq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,11 +33,13 @@ namespace EngineWrapper
                     return Bid.PassBid;
                 var suits = handsString.Split(',');
                 var minSuitLengthsPartner = ((JArray)info["minSuitLengthsPartner"]).ToObject<int[]>();
-                var majorFits = minSuitLengthsPartner
+                if (minSuitLengthsPartner == null)
+                    throw new InvalidOperationException(nameof(minSuitLengthsPartner));
+                var majorFits = (minSuitLengthsPartner)
                     .Zip(suits, (x, y) => x + y.Length)
                     .Take(2)
                     .Select((x, index) => (x, (Suit)(3 - index)))
-                    .Where(z => z.x >= 8);
+                    .Where(z => z.x >= 8).ToList();
                 var playingSuit = !majorFits.Any() ? Suit.NoTrump : majorFits.MaxBy(z => z.x).First().Item2;
                 var hcpPartnership = Util.GetHcpCount(handsString) + (long)info["minHcpPartner"];
 
@@ -70,6 +72,9 @@ namespace EngineWrapper
                     var totalTrumpQueen = Util.GetHasTrumpQueen(handsString, playingSuit) || (bool)info["trumpQueenPartner"];
 
                     var controlsPartner = ((JArray)info["controls"]).ToObject<bool[]>();
+                    if (controlsPartner == null)
+                        throw new InvalidOperationException(nameof(controlsPartner));
+
                     var controls = handsString.Split(",").Select((x, index) => (HasControl(x), index));
                     var controlsPartnership = controls.Select(x => x.Item1 || controlsPartner[x.index]);
 

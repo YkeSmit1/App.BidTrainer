@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace App.BidTrainer
+﻿namespace App.BidTrainer
 {
     public struct Lesson
     {

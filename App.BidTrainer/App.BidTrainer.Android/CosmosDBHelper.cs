@@ -1,21 +1,13 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using App.BidTrainer.Droid;
-using System;
+﻿using App.BidTrainer.Droid;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
 
-[assembly: Xamarin.Forms.Dependency(typeof(CosmosDBHelper))]
+[assembly: Xamarin.Forms.Dependency(typeof(CosmosDbHelper))]
 namespace App.BidTrainer.Droid
 {
-    public class CosmosDBHelper : ICosmosDBHelper
+    public class CosmosDbHelper : ICosmosDbHelper
     {
         public async Task<IEnumerable<Account>> GetAllAccounts()
         {

@@ -8,7 +8,7 @@
         NegativeDbl = 8,
         Reverse = 16,
         ControlBids = 32,
-        RKC = 64
+        Rkc = 64
     };
 
 }

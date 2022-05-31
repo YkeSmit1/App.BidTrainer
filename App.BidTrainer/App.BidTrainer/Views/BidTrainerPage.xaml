@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.BidTrainer.Views.BidTrainerPage"
              xmlns:views="clr-namespace:App.BidTrainer.Views"
-             xmlns:local="clr-namespace:App.BidTrainer"
              x:DataType="views:BidTrainerPage"
              Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False">
@@ -33,9 +32,9 @@
             <StackLayout Grid.Row="0" BackgroundColor="SeaGreen" >
                 <Label x:Name="StatusLabel" FontSize="Micro" Padding="10"/>
             </StackLayout>
-            <!-- Northhand-->
+            <!-- NorthHand-->
             <StackLayout Grid.Row="1" Padding="20,0,0,0">
-                <views:HandView x:Name="panelNorth"/>
+                <views:HandView x:Name="PanelNorth"/>
             </StackLayout>
             <Grid Grid.Row="2" >
                 <Grid.ColumnDefinitions>
@@ -45,10 +44,10 @@
                 <StackLayout Grid.Column="0">
                     <StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                            <Label x:Name="labelMode" Text="Bid"/>
+                            <Label x:Name="LabelMode" Text="Bid"/>
                             <Switch ThumbColor="SandyBrown" OnColor="RosyBrown" Toggled="Switch_Toggled"/>
                         </StackLayout>
-                        <!-- Biddingbox-->
+                        <!-- BiddingBox-->
                         <views:BiddingBoxView x:Name="BiddingBoxView"/>
                     </StackLayout>
                 </StackLayout>
@@ -59,9 +58,9 @@
                     </Frame>
                 </StackLayout>
             </Grid>
-            <!-- Southhand-->
+            <!-- SouthHand-->
             <StackLayout Grid.Row="3" Padding="20,0,0,0">
-                <views:HandView x:Name="panelSouth"/>
+                <views:HandView x:Name="PanelSouth"/>
             </StackLayout>
             <StackLayout Grid.Row="4">
                 <Label Text="South" FontSize="Micro" FontAttributes="Bold" 

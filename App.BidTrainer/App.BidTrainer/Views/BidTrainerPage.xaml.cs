@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 using Newtonsoft.Json;
-using NLog;
-using NLog.Config;
 using MvvmHelpers.Commands;
 using Common;
 using EngineWrapper;
@@ -18,7 +15,7 @@ using App.BidTrainer.ViewModels;
 namespace App.BidTrainer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BidTrainerPage : ContentPage
+    public partial class BidTrainerPage
     {
         public interface IFileAccessHelper
         {
@@ -32,7 +29,7 @@ namespace App.BidTrainer.Views
         // Bidding
         private readonly Auction auction = new Auction();
         private readonly Pbn pbn = new Pbn();
-        private bool isInHintMode = false;
+        private bool isInHintMode;
 
         // Lesson
         private static int CurrentLesson
@@ -58,8 +55,8 @@ namespace App.BidTrainer.Views
         // ViewModels
         private BiddingBoxViewModel BiddingBoxViewModel => (BiddingBoxViewModel)BiddingBoxView.BindingContext;
         private AuctionViewModel AuctionViewModel => (AuctionViewModel)AuctionView.BindingContext;
-        private HandViewModel HandViewModelNorth => (HandViewModel)panelNorth.BindingContext;
-        private HandViewModel HandViewModelSouth => (HandViewModel)panelSouth.BindingContext;
+        private HandViewModel HandViewModelNorth => (HandViewModel)PanelNorth.BindingContext;
+        private HandViewModel HandViewModelSouth => (HandViewModel)PanelSouth.BindingContext;
 
         public BidTrainerPage()
         {
@@ -152,7 +149,7 @@ namespace App.BidTrainer.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                panelNorth.IsVisible = false;
+                PanelNorth.IsVisible = false;
                 BiddingBoxView.IsEnabled = true;
             });
             if (CurrentBoardIndex > pbn.Boards.Count - 1)
@@ -208,13 +205,13 @@ namespace App.BidTrainer.Views
             if (auction.IsEndOfBidding())
             {
                 BiddingBoxView.IsEnabled = false;
-                panelNorth.IsVisible = true;
+                PanelNorth.IsVisible = true;
                 currentResult.TimeElapsed = DateTime.Now - startTimeBoard;
                 await DisplayAlert("Info", $"Hand is done. Contract:{auction.currentContract}", "OK");
                 results.AddResult(Lesson.LessonNr, CurrentBoardIndex, currentResult);
                 await UploadResultsAsync();
                 CurrentBoardIndex++;
-                File.WriteAllText(Path.Combine(dataPath, "results.json"), JsonConvert.SerializeObject(results, Formatting.Indented));
+                await File.WriteAllTextAsync(Path.Combine(dataPath, "results.json"), JsonConvert.SerializeObject(results, Formatting.Indented));
 
                 await StartNextBoard();
             }
@@ -225,7 +222,7 @@ namespace App.BidTrainer.Views
             var username = Preferences.Get("Username", "");
             if (username != "")
             {
-                var res = results.AllResults.Values.SelectMany(x => x.Results.Values);
+                var res = results.AllResults.Values.SelectMany(x => x.Results.Values).ToList();
                 await UpdateOrCreateAccount(username, res.Count(), res.Count(x => x.AnsweredCorrectly), res.Sum(x => x.TimeElapsed.Ticks));
             }
 
@@ -239,17 +236,17 @@ namespace App.BidTrainer.Views
                     timeElapsed = new TimeSpan(timeElapsed)
                 };
 
-                var cosmosDBHelper = DependencyService.Get<ICosmosDBHelper>();
-                var user = await cosmosDBHelper.GetAccount(username);
+                var cosmosDbHelper = DependencyService.Get<ICosmosDbHelper>();
+                var user = await cosmosDbHelper.GetAccount(username);
                 if (user == null)
                 {
                     account.id = Guid.NewGuid().ToString();
-                    await cosmosDBHelper.InsertAccount(account);
+                    await cosmosDbHelper.InsertAccount(account);
                 }
                 else
                 {
                     account.id = user.Value.id;
-                    await cosmosDBHelper.UpdateAccount(account);
+                    await cosmosDbHelper.UpdateAccount(account);
                 }
             }
         }
@@ -278,7 +275,7 @@ namespace App.BidTrainer.Views
 
         private async void ButtonClickedLeaderBoard(object sender, EventArgs e)
         {
-            var accounts = await DependencyService.Get<ICosmosDBHelper>().GetAllAccounts();
+            var accounts = await DependencyService.Get<ICosmosDbHelper>().GetAllAccounts();
             var leaderboardPage = new LeaderboardPage(accounts.OrderByDescending(x => (double)x.numberOfCorrectBoards / x.numberOfBoardsPlayed));
             await Application.Current.MainPage.Navigation.PushAsync(leaderboardPage);
         }
@@ -297,7 +294,7 @@ namespace App.BidTrainer.Views
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
             isInHintMode = e.Value;
-            labelMode.Text = isInHintMode ? "Hint" : "Bid";
+            LabelMode.Text = isInHintMode ? "Hint" : "Bid";
         }
     }
 }

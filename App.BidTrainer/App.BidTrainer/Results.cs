@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace App.BidTrainer
 {
@@ -24,7 +23,7 @@ namespace App.BidTrainer
                 Results[board] = result;
             }
 
-            public string Title => GetOverview(Results);
+            public string Title => GetOverview(Results.ToList());
         }
 
         [JsonProperty]
@@ -35,9 +34,9 @@ namespace App.BidTrainer
                 AllResults[lesson] = new ResultsPerLesson();
             AllResults[lesson].AddResult(board + 1, result);
         }
-        public string Title => GetOverview(AllResults.SelectMany(x => x.Value.Results));
+        public string Title => GetOverview(AllResults.SelectMany(x => x.Value.Results).ToList());
 
-        private static string GetOverview(IEnumerable<KeyValuePair<int, Result>> results)
+        private static string GetOverview(List<KeyValuePair<int, Result>> results)
         {
             var sb = new StringBuilder();
             sb.AppendLine($"{results.Count(x => x.Value.AnsweredCorrectly)} out of {results.Count()} are correct");

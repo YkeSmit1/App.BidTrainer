@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace App.BidTrainer
 {
-    public interface ICosmosDBHelper
+    public interface ICosmosDbHelper
     {
         Task<IEnumerable<Account>> GetAllAccounts();
 

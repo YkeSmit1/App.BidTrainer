@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace App.BidTrainer.ViewModels
 {
@@ -21,10 +20,10 @@ namespace App.BidTrainer.ViewModels
             ShowHand("AQJ4,K32,843,QT9", true, "default");
         }
 
-        public static SKBitmap LoadBitmapResource(Type type, string resourceID)
+        public static SKBitmap LoadBitmapResource(Type type, string resourceId)
         {
             var assembly = type.GetTypeInfo().Assembly;
-            using var stream = assembly.GetManifestResourceStream(resourceID);
+            using var stream = assembly.GetManifestResourceStream(resourceId);
             return SKBitmap.Decode(stream);
         }
 

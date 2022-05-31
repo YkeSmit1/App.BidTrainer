@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.BidTrainer
 {
@@ -20,7 +16,7 @@ namespace App.BidTrainer
         public int XCardPadding { get; set; }
         public int CardDistance { get; set; }
 
-        public static CardImageSettings DefaultCardImageSettings = new CardImageSettings
+        private static readonly CardImageSettings DefaultCardImageSettings = new CardImageSettings
         {
             CardImage = "App.BidTrainer.Resources.cardfaces.png",
             FirstCardIsAce = true,
@@ -35,7 +31,7 @@ namespace App.BidTrainer
             CardDistance = 20
         };
 
-        public static CardImageSettings BBOCardImageSettings = new CardImageSettings
+        private static readonly CardImageSettings BboCardImageSettings = new CardImageSettings
         {
             CardImage = "App.BidTrainer.Resources.cardfaces2.jpg",
             FirstCardIsAce = false,
@@ -55,7 +51,7 @@ namespace App.BidTrainer
             return settings switch
             {
                 "default" => DefaultCardImageSettings,
-                "bbo" => BBOCardImageSettings,
+                "bbo" => BboCardImageSettings,
                 _ => throw new NotImplementedException(),
             };
         }
