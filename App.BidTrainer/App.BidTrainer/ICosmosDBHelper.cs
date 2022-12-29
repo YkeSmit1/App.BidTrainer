@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace App.BidTrainer
+﻿namespace App.BidTrainer
 {
     public interface ICosmosDbHelper
     {

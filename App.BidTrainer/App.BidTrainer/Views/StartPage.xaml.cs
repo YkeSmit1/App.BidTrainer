@@ -1,5 +1,4 @@
 ﻿using App.BidTrainer.ViewModels;
-using Xamarin.Forms.Xaml;
 
 namespace App.BidTrainer.Views
 {

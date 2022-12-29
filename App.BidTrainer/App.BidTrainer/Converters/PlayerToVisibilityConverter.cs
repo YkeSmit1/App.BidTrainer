@@ -1,7 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using Common;
-using Xamarin.Forms;
 
 namespace App.BidTrainer.Converters
 {

@@ -1,11 +1,6 @@
-﻿using System;
-using Android.App;
-using App.BidTrainer.Droid;
-using App.BidTrainer.Views;
-using System.IO;
-using System.Threading.Tasks;
+﻿using App.BidTrainer.Views;
+using Application = Android.App.Application;
 
-[assembly: Xamarin.Forms.Dependency(typeof(FileAccessHelper))]
 namespace App.BidTrainer.Droid
 {
     public class FileAccessHelper : BidTrainerPage.IFileAccessHelper

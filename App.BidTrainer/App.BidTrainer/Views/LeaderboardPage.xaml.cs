@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using App.BidTrainer.ViewModels;
-using Xamarin.Forms.Xaml;
 
 namespace App.BidTrainer.Views
 {

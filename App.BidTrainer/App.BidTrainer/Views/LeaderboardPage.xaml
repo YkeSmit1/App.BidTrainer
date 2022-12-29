@@ -1,19 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:viewModels="clr-namespace:App.BidTrainer.ViewModels;assembly=App.BidTrainer"
-             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
              x:Class="App.BidTrainer.Views.LeaderboardPage">
     <ContentPage.BindingContext>
         <viewModels:LeaderboardViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <!-- ReSharper disable once ObsoleteElementError -->
             <dg:DataGrid ItemsSource="{Binding Accounts}"
                          RowHeight="30" HeaderHeight="50" 
                          BorderColor="#CCCCCC" HeaderBackground="#E0E6F8"
-                         HeaderFontSize="11"
                          FontSize="9">
                 <dg:DataGrid.Columns>
                     <dg:DataGridColumn Title="Name" PropertyName="username" HorizontalContentAlignment="Start"/>

@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace App.BidTrainer
+﻿namespace App.BidTrainer
 {
     public class Card
     {

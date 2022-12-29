@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.IO;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using Xamarin.Essentials;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using MvvmHelpers.Commands;
 using Common;
 using EngineWrapper;
@@ -96,7 +88,7 @@ namespace App.BidTrainer.Views
             else if (e.Modal == settingsPage)
             {
                 ((SettingsViewModel)settingsPage.BindingContext).Save();
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                     StatusLabel.Text = $"Username: {Preferences.Get("Username", "")}\nLesson: {Lesson.LessonNr}\nBoard: {CurrentBoardIndex + 1}");
             }
         }
@@ -147,7 +139,7 @@ namespace App.BidTrainer.Views
 
         private async Task StartNextBoard()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 PanelNorth.IsVisible = false;
                 BiddingBoxView.IsEnabled = true;
@@ -170,7 +162,7 @@ namespace App.BidTrainer.Views
                     return;
                 }
             }
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
                 StatusLabel.Text = $"Username: {Preferences.Get("Username", "")}\nLesson: {Lesson.LessonNr}\nBoard: {CurrentBoardIndex + 1}");
             ShowBothHands();
             await StartBidding();

@@ -1,10 +1,6 @@
 ﻿using App.BidTrainer.Droid;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
 
-[assembly: Xamarin.Forms.Dependency(typeof(CosmosDbHelper))]
 namespace App.BidTrainer.Droid
 {
     public class CosmosDbHelper : ICosmosDbHelper

@@ -4,10 +4,6 @@ using MvvmHelpers.Commands;
 using MvvmHelpers.Interfaces;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Threading.Tasks;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace App.BidTrainer.ViewModels
 {

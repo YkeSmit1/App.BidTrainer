@@ -1,5 +1,4 @@
 ﻿using MvvmHelpers;
-using Xamarin.Essentials;
 
 namespace App.BidTrainer.ViewModels
 {

@@ -1,12 +1,9 @@
 ﻿using Common;
 using MvvmHelpers;
 using SkiaSharp;
-using SkiaSharp.Views.Forms;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reflection;
+using SkiaSharp.Views.Maui.Controls;
 
 namespace App.BidTrainer.ViewModels
 {
