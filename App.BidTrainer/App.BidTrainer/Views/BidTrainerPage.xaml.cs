@@ -282,7 +282,7 @@ namespace App.BidTrainer.Views
 
         private async void ButtonClickedSettings(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(settingsPage);
+            await Application.Current.MainPage.Navigation.PushAsync(settingsPage);
         }
 
         protected override async void OnAppearing()
