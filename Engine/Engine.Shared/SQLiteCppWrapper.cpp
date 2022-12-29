@@ -106,7 +106,6 @@ std::tuple<int, std::string> SQLiteCppWrapper::GetRule(const HandCharacteristic&
         {
             auto bidId = queryShape->getColumn(0).getInt();
             auto str = queryShape->getColumn(1).getString();
-            auto id = queryShape->getColumn(2).getInt();
 
             return std::make_tuple(bidId, str);
         }
