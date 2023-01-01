@@ -9,51 +9,32 @@ namespace App.BidTrainer.Droid
 {
     public class CosmosDbHelper : ICosmosDbHelper
     {
+        private static readonly CosmosClient Client = new(Constants.EndpointUri, Constants.PrimaryKey, new CosmosClientOptions { ApplicationRegion = Regions.WestEurope, });
+        private static readonly Container Container = Client.GetContainer(Constants.DatabaseName, Constants.CollectionName);
+
         public async Task<IEnumerable<Account>> GetAllAccounts()
         {
-            var accounts = new List<Account>();
-
             var queryDefinition = new QueryDefinition("select * from c");
-            using var query = GetContainer().GetItemQueryIterator<Account>(queryDefinition);
-            {
-                while (query.HasMoreResults)
-                {
-                    accounts.AddRange(await query.ReadNextAsync());
+            using var query = Container.GetItemQueryIterator<Account>(queryDefinition);
+            return await query.ReadNextAsync();
                 }
-            }
-            return accounts;
-        }
 
         public async Task<Account?> GetAccount(string username)
         {
-            var querydefinition = new QueryDefinition($"select * from c where c.username = '{username}'");
-            using var query = GetContainer().GetItemQueryIterator<Account>(querydefinition);
-            while (query.HasMoreResults)
-            {
+            var queryDefinition = new QueryDefinition($"select * from c where c.username = '{username}'");
+            using var query = Container.GetItemQueryIterator<Account>(queryDefinition);
                 var account = await query.ReadNextAsync();
-                if (account.Count != 0)
-                    return account.First();
+            return account.FirstOrDefault();
             }
-
-            return null;
-        }
 
         public async Task InsertAccount(Account account)
         {
-            await GetContainer().CreateItemAsync(account);
+            await Container.CreateItemAsync(account);
         }
 
         public async Task UpdateAccount(Account account)
         {
-            await GetContainer().UpsertItemAsync(account);
+            await Container.UpsertItemAsync(account);
         }
-
-        private static Container GetContainer()
-        {
-            var client = new CosmosClient(Constants.EndpointUri, Constants.PrimaryKey,
-                new CosmosClientOptions { ApplicationRegion = Regions.WestEurope, });
-            return client.GetContainer(Constants.DatabaseName, Constants.CollectionName);
         }
-
-    }
 }
