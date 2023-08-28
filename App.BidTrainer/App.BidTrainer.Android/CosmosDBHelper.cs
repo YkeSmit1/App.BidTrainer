@@ -9,7 +9,7 @@ namespace App.BidTrainer.Droid
 {
     public class CosmosDbHelper : ICosmosDbHelper
     {
-        private static readonly CosmosClient Client = new(Constants.EndpointUri, Constants.PrimaryKey, new CosmosClientOptions { ApplicationRegion = Regions.WestEurope, });
+        private static readonly CosmosClient Client = new CosmosClient(Constants.EndpointUri, Constants.PrimaryKey, new CosmosClientOptions { ApplicationRegion = Regions.WestEurope, });
         private static readonly Container Container = Client.GetContainer(Constants.DatabaseName, Constants.CollectionName);
 
         public async Task<IEnumerable<Account>> GetAllAccounts()
