@@ -1,20 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewmodels="clr-namespace:App.BidTrainer.ViewModels" 
+             xmlns:viewmodels="clr-namespace:App.BidTrainer.ViewModels"
+             xmlns:common="clr-namespace:Common;assembly=Common"
              x:Class="App.BidTrainer.Views.BiddingBoxView">
   <ContentView.BindingContext>
       <viewmodels:BiddingBoxViewModel/>
   </ContentView.BindingContext>
     <ContentView.Resources>
-        <DataTemplate x:Key="BidButtonsTemplate">
+        <DataTemplate x:Key="BidButtonsTemplate" x:DataType="{x:Type common:Bid }">
             <Frame Padding="1" WidthRequest="42" BackgroundColor="MediumSeaGreen" CornerRadius="5">
                 <Button Text="{Binding}" 
                         FontSize="9"
                         BackgroundColor="White"
                         TextColor="Black"
                         HorizontalOptions="Center" VerticalOptions="Center"
-                        Command="{Binding Path=BindingContext.DoBid, Source={RelativeSource AncestorType={x:Type CollectionView}} }" 
+                        Command="{Binding Path=DoBid, Source={RelativeSource AncestorType={x:Type viewmodels:BiddingBoxViewModel}} }" 
                         CommandParameter="{Binding}">
                 </Button>
             </Frame>

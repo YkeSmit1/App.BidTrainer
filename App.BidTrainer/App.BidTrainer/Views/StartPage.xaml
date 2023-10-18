@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:viewmodels="clr-namespace:App.BidTrainer.ViewModels"
+             xmlns:bidTrainer="clr-namespace:App.BidTrainer;assembly=App.BidTrainer"
              x:Class="App.BidTrainer.Views.StartPage">
     <ContentPage.Resources>
         <Style TargetType="Button">
@@ -22,11 +23,11 @@
             </Grid.RowDefinitions>
             <CollectionView Grid.Row="0" ItemsSource="{Binding Lessons}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="{x:Type bidTrainer:Lesson}">
                         <StackLayout>
                             <Button Text="{Binding Content}"
-                                Command="{Binding Path=BindingContext.StartLessonCommand,
-                                    Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type CollectionView}}}" 
+                                Command="{Binding Path=StartLessonCommand, 
+                                    Source={RelativeSource AncestorType={x:Type viewmodels:StartViewModel}}}" 
                                 CommandParameter="{Binding LessonNr}"/>
                             <BoxView Color="Black" WidthRequest="100" HeightRequest="2"/>
                         </StackLayout>
