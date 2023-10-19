@@ -141,7 +141,7 @@ namespace App.BidTrainer.Views
         private void UpdateBidControls(Bid bid)
         {
             auction.AddBid(bid);
-            AuctionViewModel.UpdateAuction(auction);
+            AuctionViewModel.Auction = ObjectCloner.ObjectCloner.DeepClone(auction);
             BiddingBoxViewModel.DoBid.RaiseCanExecuteChanged();
         }
 
@@ -179,7 +179,7 @@ namespace App.BidTrainer.Views
         private async Task StartBidding()
         {
             auction.Clear(Dealer);
-            AuctionViewModel.UpdateAuction(auction);
+            AuctionViewModel.Auction = ObjectCloner.ObjectCloner.DeepClone(auction);
             BiddingBoxViewModel.DoBid.RaiseCanExecuteChanged();
             startTimeBoard = DateTime.Now;
             currentResult = new Result();

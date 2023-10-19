@@ -14,7 +14,12 @@ namespace App.BidTrainer.Droid
         {
             var docFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             using var assets = Application.Context.Assets;
-            foreach (var file in assets.List("data"))
+            if (assets == null) 
+                throw new InvalidProgramException("Cannot retrieve assets");
+            var files = await assets.ListAsync("data");
+            if (files == null) 
+                throw new InvalidProgramException("Cannot find lessons in data");
+            foreach (var file in files)
             {
                 await using var writeStream = new FileStream(Path.Combine(docFolder, file), FileMode.Create, FileAccess.Write);
                 await using var stream = assets.Open(Path.Combine("data", file));

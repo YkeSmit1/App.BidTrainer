@@ -28,7 +28,7 @@ namespace EngineWrapper
 
             Bid GetCalculatedBid()
             {
-                var info = GetInformationFromAuction(auction);
+                var info = GetInformationFromAuction();
                 if ((long)info["minHcpPartner"] == 0)
                     return Bid.PassBid;
                 var suits = handsString.Split(',');
@@ -57,7 +57,7 @@ namespace EngineWrapper
 
                 return new Bid(rank, playingSuit);
 
-                Dictionary<string, object> GetInformationFromAuction(Auction auction)
+                Dictionary<string, object> GetInformationFromAuction()
                 {
                     var stringBuilder = new StringBuilder(8129);
                     Pinvoke.GetInformationFromAuction(auction.GetBidsAsStringASCII(), stringBuilder);

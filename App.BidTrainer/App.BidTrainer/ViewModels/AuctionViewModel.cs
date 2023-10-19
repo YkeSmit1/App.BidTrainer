@@ -17,10 +17,5 @@ namespace App.BidTrainer.ViewModels
             Auction.AddBid(new Bid(2, Suit.Clubs));
             Auction.AddBid(new Bid(BidType.pass));
         }
-
-        public void UpdateAuction(Auction auction)
-        {
-            Auction = ObjectCloner.ObjectCloner.DeepClone(auction);
-        }
     }
 }
