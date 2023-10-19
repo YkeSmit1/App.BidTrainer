@@ -13,8 +13,12 @@
             <dg:DataGrid ItemsSource="{Binding Accounts}"
                          RowHeight="30" HeaderHeight="50" 
                          BorderColor="#CCCCCC" HeaderBackground="#E0E6F8"
-                         HeaderFontSize="11"
                          FontSize="9">
+                <dg:DataGrid.HeaderLabelStyle>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="11"></Setter>
+                    </Style>
+                </dg:DataGrid.HeaderLabelStyle>
                 <dg:DataGrid.Columns>
                     <dg:DataGridColumn Title="Name" PropertyName="username" HorizontalContentAlignment="Start"/>
                     <dg:DataGridColumn Title="Boards played" PropertyName="numberOfBoardsPlayed" HorizontalContentAlignment="Center"/>

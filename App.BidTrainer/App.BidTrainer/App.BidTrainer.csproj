@@ -17,14 +17,14 @@
 
   <ItemGroup>
     <PackageReference Include="Common.BridgeClasses" Version="1.0.6" />
-    <PackageReference Include="NLog" Version="4.7.15" />
+    <PackageReference Include="NLog" Version="5.2.5" />
     <PackageReference Include="ObjectCloner" Version="2.2.2" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
-    <PackageReference Include="SkiaSharp" Version="2.80.3" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />  
-    <PackageReference Include="Xamarin.Forms.DataGrid" Version="4.8.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.6" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.6" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2612" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.8.0" />  
+    <PackageReference Include="Xamarin.Forms.DataGrid" Version="5.0.0.2545" />
   </ItemGroup>
 
   <ItemGroup>
