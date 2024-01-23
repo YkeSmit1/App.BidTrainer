@@ -1,3 +1,5 @@
+// ReSharper disable CppLocalVariableMayBeConst
+// ReSharper disable CppCStyleCast
 #include "Rule.h"
 #include "Utils.h"
 #include <algorithm>
@@ -32,7 +34,7 @@ void HandCharacteristic::Initialize(const std::string& hand)
     highestSuit = !suitsEqualLength ? -1 : (int)std::distance(suitLengths.begin(), std::find(suitLengths.begin(), suitLengths.end(), lengthFirstSuit));
     lowestSuit = !suitsEqualLength ? -1 : (int)std::distance(std::find(suitLengths.rbegin(), suitLengths.rend(), lengthFirstSuit), suitLengths.rend()) - 1;
 
-    Hcp = Utils::CalculateHcp(hand);
+    hcp = Utils::CalculateHcp(hand);
     controls.clear();
     for (auto suit = 0; suit <= 3; suit++)
     {

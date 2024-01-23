@@ -1,14 +1,16 @@
+// ReSharper disable CppLocalVariableMayBeConst
+// ReSharper disable CppCStyleCast
 #include "InformationFromAuction.h"
 #include <algorithm>
 #include "Utils.h"
-#include "ISQLiteWrapper.h"
+#include "ISqliteWrapper.h"
 #include "nlohmann/json.hpp"
 
 using namespace std::literals::string_literals;
 
-InformationFromAuction::InformationFromAuction(ISQLiteWrapper* sqliteWrapper, const std::string& previousBidding)
+InformationFromAuction::InformationFromAuction(ISqliteWrapper* sqliteWrapper, const std::string& previousBidding)
 {
-    std::vector<std::vector<int>> minSuitLengths{ std::vector<int>{0, 0, 0, 0}, std::vector<int>{0, 0, 0, 0}, std::vector<int>{0, 0, 0, 0}, std::vector<int>{0, 0, 0, 0} };
+    std::vector minSuitLengths{ std::vector{0, 0, 0, 0}, std::vector{0, 0, 0, 0}, std::vector{0, 0, 0, 0}, std::vector{0, 0, 0, 0} };
 
     auto bidIds = Utils::SplitAuction(previousBidding);
     auto position = 1;
@@ -36,7 +38,7 @@ InformationFromAuction::InformationFromAuction(ISQLiteWrapper* sqliteWrapper, co
                     if (ExtraInfoFromRelativeRules(sqliteWrapper, bidId, "", isPartner))
                     {
                         auto trumpSuit = Utils::GetSuitInt(bidIds.at((size_t)(position - 3)));
-                        // Slambidding promises fit. So update minsuit
+                        // Slambidding promises fit. So update minSuit
                         if (isPartner)
                             minSuitLengths.at(player).at(trumpSuit) = std::max(minSuitLengths.at(player).at(trumpSuit), 4);
                         isSlamBidding = true;
@@ -61,10 +63,9 @@ InformationFromAuction::InformationFromAuction(ISQLiteWrapper* sqliteWrapper, co
     openersSuits = minSuitLengths.at(0);
 }
 
-bool InformationFromAuction::ExtraInfoFromRelativeRules(ISQLiteWrapper* sqliteWrapper, int bidId, const std::string& currentBidding, bool isPartner)
+bool InformationFromAuction::ExtraInfoFromRelativeRules(ISqliteWrapper* sqliteWrapper, int bidId, const std::string& currentBidding, bool isPartner)
 {
-    auto rules = sqliteWrapper->GetInternalRelativeRulesByBid(bidId, currentBidding);
-    if (rules.size() > 0)
+    if (auto rules = sqliteWrapper->GetInternalRelativeRulesByBid(bidId, currentBidding); rules.size() > 0)
     {
         if (isPartner)
         {
@@ -86,7 +87,7 @@ int InformationFromAuction::GetLowestValue(const std::vector<std::unordered_map<
         return 0;
 
     auto minElement = std::min_element(rules.begin(), rules.end(), [&](const auto& a, const auto& b) {return std::stoi(a.at(columnName)) < std::stoi(b.at(columnName)); });
-    auto &value = (*minElement).at(columnName);
+    auto &value = minElement->at(columnName);
     return value == "" ? 0 : std::stoi(value);
 }
 

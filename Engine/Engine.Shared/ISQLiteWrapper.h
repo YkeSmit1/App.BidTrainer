@@ -8,10 +8,10 @@
 struct HandCharacteristic;
 struct BoardCharacteristic;
 
-class ISQLiteWrapper  // NOLINT(hicpp-special-member-functions, cppcoreguidelines-special-member-functions)
+class ISqliteWrapper
 {
 public:
-    virtual ~ISQLiteWrapper() = default;
+    virtual ~ISqliteWrapper() = default;
     virtual std::tuple<int, std::string> GetRule(const HandCharacteristic& hand, const BoardCharacteristic& board, const std::string& previousBidding) = 0;
     virtual std::tuple<int, std::string> GetRelativeRule(const HandCharacteristic& hand, const BoardCharacteristic& board, const std::string& previousBidding) = 0;
     virtual std::string GetRulesByBid(int bidId, const std::string& previousBidding) = 0;

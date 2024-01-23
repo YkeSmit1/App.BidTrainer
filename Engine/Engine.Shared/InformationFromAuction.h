@@ -2,14 +2,13 @@
 
 #include <vector>
 #include <string>
-#include "Api.h"
 #include <unordered_map>
 
-class ISQLiteWrapper;
+class ISqliteWrapper;
 
 struct InformationFromAuction
 {
-    InformationFromAuction(ISQLiteWrapper* sqliteWrapper, const std::string& previousBidding);
+    InformationFromAuction(ISqliteWrapper* sqliteWrapper, const std::string& previousBidding);
     InformationFromAuction() {};
 
     std::vector<int> partnersSuits{0,0,0,0};
@@ -25,6 +24,6 @@ struct InformationFromAuction
 private:
     int GetLowestValue(const std::vector<std::unordered_map<std::string, std::string>>& rules, const std::string& columnName);
     bool AllTrue(const std::vector<std::unordered_map<std::string, std::string>>& rules, const std::string& columnName);
-    bool ExtraInfoFromRelativeRules(ISQLiteWrapper* sqliteWrapper, int bidId, const std::string& currentBidding, bool isPartner);
+    bool ExtraInfoFromRelativeRules(ISqliteWrapper* sqliteWrapper, int bidId, const std::string& currentBidding, bool isPartner);
 };
 

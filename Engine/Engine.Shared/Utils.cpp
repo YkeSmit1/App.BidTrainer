@@ -1,3 +1,6 @@
+// ReSharper disable CppParameterMayBeConst
+// ReSharper disable CppLocalVariableMayBeConst
+// ReSharper disable CppCStyleCast
 #include "Utils.h"
 #include <algorithm>
 
@@ -15,7 +18,7 @@ std::string Utils::GetSuit(int suit)
     case 2: return "Diamond";
     case 3: return "Club";
     default:
-        throw new std::invalid_argument("Unknown suit");
+        throw std::invalid_argument("Unknown suit");
     }
 }
 
@@ -37,7 +40,7 @@ int Utils::GetSuit(const std::string& suit)
         return 2;
     if (suit == "C")
         return 3;
-    throw new std::invalid_argument("Unknown suit");
+    throw std::invalid_argument("Unknown suit");
 }
 
 std::string Utils::GetSuitASCII(int bidId)
@@ -50,7 +53,7 @@ std::string Utils::GetSuitASCII(int bidId)
     case 3: return "C";
     case 4: return "NT";
     default:
-        throw new std::invalid_argument("Unknown suit");
+        throw std::invalid_argument("Unknown suit");
     }
 }
 

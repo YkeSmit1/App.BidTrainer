@@ -1,9 +1,11 @@
+// ReSharper disable CppLocalVariableMayBeConst
+// ReSharper disable CppCStyleCast
+// ReSharper disable CppParameterMayBeConst
 #include <iostream>
-#include <algorithm>
 #include <vector>
 #include <unordered_map>
 
-#include "SQLiteCppWrapper.h"
+#include "SqliteCppWrapper.h"
 #include "nlohmann/json.hpp"
 #include "sqlite3.h"
 
@@ -38,7 +40,7 @@ static void getBidKindFromAuction(sqlite3_context* context, int argc, sqlite3_va
         auto bidId = sqlite3_value_int(argv[1]);
         if (previousBidding && previousBidding[0])
         {
-            auto match = (int)SQLiteCppWrapper::GetBidKindFromAuction(previousBidding, bidId);
+            auto match = (int)SqliteCppWrapper::GetBidKindFromAuction(previousBidding, bidId);
             sqlite3_result_int(context, match);
             return;
         }
@@ -46,7 +48,7 @@ static void getBidKindFromAuction(sqlite3_context* context, int argc, sqlite3_va
     sqlite3_result_null(context);
 }
 
-SQLiteCppWrapper::SQLiteCppWrapper(const std::string& database)
+SqliteCppWrapper::SqliteCppWrapper(const std::string& database)
 {
     try
     {
@@ -67,7 +69,7 @@ SQLiteCppWrapper::SQLiteCppWrapper(const std::string& database)
     }
 }
 
-std::tuple<int, std::string> SQLiteCppWrapper::GetRule(const HandCharacteristic& hand, const BoardCharacteristic& board, const std::string& previousBidding)
+std::tuple<int, std::string> SqliteCppWrapper::GetRule(const HandCharacteristic& hand, const BoardCharacteristic& board, const std::string& previousBidding)
 {
     try
     {
@@ -86,7 +88,7 @@ std::tuple<int, std::string> SQLiteCppWrapper::GetRule(const HandCharacteristic&
         queryShape->bind(":minDiamonds", hand.suitLengths[2]);
         queryShape->bind(":minClubs", hand.suitLengths[3]);
 
-        queryShape->bind(":minHcp", hand.Hcp);
+        queryShape->bind(":minHcp", hand.hcp);
         queryShape->bind(":isBalanced", hand.isBalanced);
         queryShape->bind(":opponentsSuit", (int)board.opponentsSuit);
         queryShape->bind(":stopInOpponentsSuit", board.stopInOpponentsSuit);
@@ -118,7 +120,7 @@ std::tuple<int, std::string> SQLiteCppWrapper::GetRule(const HandCharacteristic&
     }
 }
 
-BidKindAuction SQLiteCppWrapper::GetBidKindFromAuction(const std::string& previousBidding, int bidId)
+BidKindAuction SqliteCppWrapper::GetBidKindFromAuction(const std::string& previousBidding, int bidId)
 {
     auto bids = Utils::SplitAuction(previousBidding);
     auto lengthAuction = bids.size();
@@ -146,36 +148,36 @@ BidKindAuction SQLiteCppWrapper::GetBidKindFromAuction(const std::string& previo
     return BidKindAuction::UnknownSuit;
 }
 
-bool SQLiteCppWrapper::HasFitWithPartner(const std::vector<int>& bids, size_t lengthAuction, int suit)
+bool SqliteCppWrapper::HasFitWithPartner(const std::vector<int>& bids, size_t lengthAuction, int suit)
 {
     return HasFitWithPartnerPrevious(bids, lengthAuction, suit) || HasFitWithPartnerFirst(bids, lengthAuction, suit);
 }
-bool SQLiteCppWrapper::HasFitWithPartnerPrevious(const std::vector<int>& bids, size_t lengthAuction, int suit)
+bool SqliteCppWrapper::HasFitWithPartnerPrevious(const std::vector<int>& bids, size_t lengthAuction, int suit)
 {
     return lengthAuction >= 2 && Utils::GetSuitInt(bids.at(lengthAuction - 2)) == suit;
 }
 
-bool SQLiteCppWrapper::HasFitWithPartnerFirst(const std::vector<int>& bids, size_t lengthAuction, int suit)
+bool SqliteCppWrapper::HasFitWithPartnerFirst(const std::vector<int>& bids, size_t lengthAuction, int suit)
 {
     return lengthAuction >= 6 && Utils::GetSuitInt(bids.at(lengthAuction - 6)) == suit;
 }
 
-bool SQLiteCppWrapper::IsReverse(int suit, int rank, int previousSuit, int previousRank)
+bool SqliteCppWrapper::IsReverse(int suit, int rank, int previousSuit, int previousRank)
 {
     return (previousSuit <= 3 && previousSuit > suit && previousRank < rank);
 }
 
-bool SQLiteCppWrapper::IsNonReverse(int suit, int rank, int previousSuit, int previousRank)
+bool SqliteCppWrapper::IsNonReverse(int suit, int rank, int previousSuit, int previousRank)
 {
     return (previousSuit <= 3 && (previousSuit < suit || previousRank > rank));
 }
 
-bool SQLiteCppWrapper::IsRebidOwnSuit(const std::vector<int>& bids, size_t lengthAuction, int suit)
+bool SqliteCppWrapper::IsRebidOwnSuit(const std::vector<int>& bids, size_t lengthAuction, int suit)
 {
     return (lengthAuction >= 4 && Utils::GetSuitInt(bids.at(lengthAuction - 4)) == suit);
 }
 
-std::tuple<int, std::string> SQLiteCppWrapper::GetRelativeRule(const HandCharacteristic& hand, const BoardCharacteristic& board, const std::string& previousBidding)
+std::tuple<int, std::string> SqliteCppWrapper::GetRelativeRule(const HandCharacteristic& hand, const BoardCharacteristic& board, const std::string& previousBidding)
 {
     try
     {
@@ -214,7 +216,7 @@ std::tuple<int, std::string> SQLiteCppWrapper::GetRelativeRule(const HandCharact
 /// Gets all the rules for this bid
 /// </summary>
 /// <returns>a JSON string with all the rules</returns>
-std::string SQLiteCppWrapper::GetRulesByBid(int bidId, const std::string& previousBidding)
+std::string SqliteCppWrapper::GetRulesByBid(int bidId, const std::string& previousBidding)
 {
     nlohmann::json j = GetInternalRulesByBid(bidId, previousBidding);
     std::stringstream ss;
@@ -223,7 +225,7 @@ std::string SQLiteCppWrapper::GetRulesByBid(int bidId, const std::string& previo
     return s;
 }
 
-std::vector<std::unordered_map<std::string, std::string>> SQLiteCppWrapper::GetInternalRulesByBid(int bidId, const std::string& previousBidding)
+std::vector<std::unordered_map<std::string, std::string>> SqliteCppWrapper::GetInternalRulesByBid(int bidId, const std::string& previousBidding)
 {
     auto bidIds = Utils::SplitAuction(previousBidding);
     auto position = (int)bidIds.size() + 1;
@@ -273,12 +275,10 @@ std::vector<std::unordered_map<std::string, std::string>> SQLiteCppWrapper::GetI
     }
 }
 
-void SQLiteCppWrapper::UpdateMinMax(int bidId, std::unordered_map<std::string, std::string>& record)
+void SqliteCppWrapper::UpdateMinMax(int bidId, std::unordered_map<std::string, std::string>& record) const
 {
     auto suit = Utils::GetSuitFromBidId(bidId) + "s";
-    auto bidKind = (BidKind)queryRules->getColumn("BidSuitKind").getInt();
-    std::string suitKind = "";
-    switch (bidKind)
+    switch ((BidKind)queryRules->getColumn("BidSuitKind").getInt())
     {
     case BidKind::FirstSuit:
     case BidKind::LowestSuit:
@@ -310,7 +310,7 @@ void SQLiteCppWrapper::UpdateMinMax(int bidId, std::unordered_map<std::string, s
 /// Gets all the rules for this bid in the relativeRules table
 /// </summary>
 /// <returns>a JSON string with all the relative rules</returns>
-std::string SQLiteCppWrapper::GetRelativeRulesByBid(int bidId, const std::string& previousBidding)
+std::string SqliteCppWrapper::GetRelativeRulesByBid(int bidId, const std::string& previousBidding)
 {
     auto records = GetInternalRelativeRulesByBid(bidId, previousBidding);
     nlohmann::json j = records;
@@ -320,7 +320,7 @@ std::string SQLiteCppWrapper::GetRelativeRulesByBid(int bidId, const std::string
     return s;
 }
 
-std::vector<std::unordered_map<std::string, std::string>> SQLiteCppWrapper::GetInternalRelativeRulesByBid(int bidId, const std::string& previousBidding)
+std::vector<std::unordered_map<std::string, std::string>> SqliteCppWrapper::GetInternalRelativeRulesByBid(int bidId, const std::string& previousBidding)
 {
     try
     {
@@ -351,7 +351,7 @@ std::vector<std::unordered_map<std::string, std::string>> SQLiteCppWrapper::GetI
     }
 }
 
-void SQLiteCppWrapper::SetModules(int modules)
+void SqliteCppWrapper::SetModules(int modules)
 {
     this->modules = modules;
 }

@@ -1,13 +1,14 @@
+// ReSharper disable CppCStyleCast
 #pragma once
 
-#include "ISQLiteWrapper.h"
+#include "ISqliteWrapper.h"
 #include "SQLiteCpp/SQLiteCpp.h"
 #include <unordered_map>
 #include "Api.h"
 
 enum class BidKind;
 
-class SQLiteCppWrapper : public ISQLiteWrapper
+class SqliteCppWrapper final : public ISqliteWrapper
 {
     constexpr static std::string_view shapeSql = R"(WITH cte_rules AS (SELECT CASE 
                 WHEN BidId IS NOT null THEN BidId
@@ -87,21 +88,21 @@ class SQLiteCppWrapper : public ISQLiteWrapper
     int modules = (int)Modules::FiveCardMajors;
 
 public:
-    SQLiteCppWrapper(const std::string& database);
+    explicit SqliteCppWrapper(const std::string& database);
     static BidKindAuction GetBidKindFromAuction(const std::string& previousBidding, int bidId);
 private:
-    std::tuple<int, std::string> GetRule(const HandCharacteristic& hand, const BoardCharacteristic& boardCharacteristic, const std::string& previousBidding) final;
-    std::tuple<int, std::string> GetRelativeRule(const HandCharacteristic& hand, const BoardCharacteristic& boardCharacteristic, const std::string& previousBidding) final;
-    std::string GetRulesByBid(int bidId, const std::string& previousBidding) final;
-    std::vector<std::unordered_map<std::string, std::string>> GetInternalRulesByBid(int bidId, const std::string& previousBidding) final;
+    std::tuple<int, std::string> GetRule(const HandCharacteristic& hand, const BoardCharacteristic& boardCharacteristic, const std::string& previousBidding) override;
+    std::tuple<int, std::string> GetRelativeRule(const HandCharacteristic& hand, const BoardCharacteristic& boardCharacteristic, const std::string& previousBidding) override;
+    std::string GetRulesByBid(int bidId, const std::string& previousBidding) override;
+    std::vector<std::unordered_map<std::string, std::string>> GetInternalRulesByBid(int bidId, const std::string& previousBidding) override;
     static bool HasFitWithPartnerPrevious(const std::vector<int>& bids, size_t lengthAuction, int suit);
     static bool HasFitWithPartnerFirst(const std::vector<int>& bids, size_t lengthAuction, int suit);
     static bool HasFitWithPartner(const std::vector<int>& bids, size_t lengthAuction, int suit);
     static bool IsReverse(int suit, int rank, int previousSuit, int previousRank);
     static bool IsNonReverse(int suit, int rank, int previousSuit, int previousRank);
     static bool IsRebidOwnSuit(const std::vector<int>& bids, size_t lengthAuction, int suit);
-    void UpdateMinMax(int bidId, std::unordered_map<std::string, std::string>& record);
-    std::string GetRelativeRulesByBid(int bidId, const std::string& previousBidding) final;
-    std::vector<std::unordered_map<std::string, std::string>> GetInternalRelativeRulesByBid(int bidId, const std::string& previousBidding) final;
+    void UpdateMinMax(int bidId, std::unordered_map<std::string, std::string>& record) const;
+    std::string GetRelativeRulesByBid(int bidId, const std::string& previousBidding) override;
+    std::vector<std::unordered_map<std::string, std::string>> GetInternalRelativeRulesByBid(int bidId, const std::string& previousBidding) override;
     void SetModules(int modules) override;
 };

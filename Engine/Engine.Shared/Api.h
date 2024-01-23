@@ -41,5 +41,5 @@ extern "C" {
     void GetRulesByBid(int bidId, const char* previousBidding, char* information);
     int Setup(const char* database);
     void SetModules(int modules);
-    void GetInformationFromAuction(const char* previousBidding, char* informationFromAuctionjson);
+    void GetInformationFromAuction(const char* previousBidding, char* informationFromAuctionJson);
 }

@@ -1,3 +1,6 @@
+// ReSharper disable CppCStyleCast
+// ReSharper disable CppLocalVariableMayBeConst
+// ReSharper disable CppParameterMayBeConst
 #include "BoardCharacteristic.h"
 #include <vector>
 #include <algorithm>
@@ -5,7 +8,7 @@
 #include "Utils.h"
 #include "InformationFromAuction.h"
 
-BoardCharacteristic::BoardCharacteristic(HandCharacteristic hand, const std::string& previousBidding, InformationFromAuction informationFromAuction)
+BoardCharacteristic::BoardCharacteristic(HandCharacteristic hand, const std::string& previousBidding, const InformationFromAuction& informationFromAuction)
 {
     auto bidIds = Utils::SplitAuction(previousBidding);
     position = (int)bidIds.size() + 1;
