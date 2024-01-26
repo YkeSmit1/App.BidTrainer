@@ -16,16 +16,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+          submodules: true      
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 2.1.x
+    - name: add source to nuget 
+      run: dotnet nuget add source "https://nuget.pkg.github.com/YkeSmit1/index.json" --name "githubfeed" --username "YkeSmit1" --password "${{ secrets.GITHUB_TOKEN }}"
     - name: Restore dependencies
       run: dotnet restore
     - name: NuGet Restore
-      run: nuget restore BidTrainer.sln      
-    - name: Build
-      run: dotnet build --no-restore
+      run: nuget restore App.BidTrainer.sln      
       # Restore from cache the previously built ports. If cache-miss, download, build vcpkg.
     - name: Restore from cache and install vcpkg
       # Download and build vcpkg, without installing any port. If content is cached already, it is a no-op.
@@ -37,5 +39,7 @@ jobs:
         $VCPKG_ROOT/vcpkg install nlohmann-json:x64-windows
         $VCPKG_ROOT/vcpkg integrate install
       shell: bash      
+    - name: Build
+      run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
