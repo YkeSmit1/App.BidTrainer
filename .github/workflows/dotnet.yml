@@ -22,6 +22,8 @@ jobs:
         dotnet-version: 2.2.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: NuGet Restore
+      run: nuget restore BidTrainer.sln      
     - name: Build
       run: dotnet build --no-restore
       # Restore from cache the previously built ports. If cache-miss, download, build vcpkg.
