@@ -30,7 +30,6 @@ jobs:
         distribution: 'temurin' # See 'Supported distributions' for available options
         java-version: '21'
         check-latest: true
-    - run: java HelloWorldApp.java        
     - name: Restore dependencies
       run: dotnet restore
     - name: NuGet Restore
