@@ -40,6 +40,8 @@ jobs:
         $VCPKG_ROOT/vcpkg install nlohmann-json:x64-windows
         $VCPKG_ROOT/vcpkg integrate install
       shell: bash      
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.3
     - name: Build
       run: msbuild App.BidTrainer.sln /t:PackageForAndroid /p:Configuration=Release
     - name: Test
