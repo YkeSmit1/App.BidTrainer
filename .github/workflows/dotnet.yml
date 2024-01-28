@@ -27,7 +27,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: NuGet Restore
-      run: nuget restore App.BidTrainer.sln      
+      run: nuget restore App.BidTrainer.sln
       # Restore from cache the previously built ports. If cache-miss, download, build vcpkg.
     - name: Restore from cache and install vcpkg
       # Download and build vcpkg, without installing any port. If content is cached already, it is a no-op.
@@ -40,6 +40,6 @@ jobs:
         $VCPKG_ROOT/vcpkg integrate install
       shell: bash      
     - name: Build
-      run: dotnet build --no-restore
+      run: msbuild App.BidTrainer.sln /t:PackageForAndroid /p:Configuration=Release
     - name: Test
       run: dotnet test --no-build --verbosity normal
