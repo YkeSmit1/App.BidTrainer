@@ -22,6 +22,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 2.1.x
+    - name: Set default Xamarin SDK versions
+      run: |
+        $VM_ASSETS/select-xamarin-sdk-v2.sh --mono=6.10 --android=10.2
     - name: add source to nuget 
       run: dotnet nuget add source "https://nuget.pkg.github.com/YkeSmit1/index.json" --name "githubfeed" --username "YkeSmit1" --password "${{ secrets.GITHUB_TOKEN }}"
     - name: Restore dependencies
