@@ -21,7 +21,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 2.1.x
+        dotnet-version: '2.1.x'
     - name: add source to nuget 
       run: dotnet nuget add source "https://nuget.pkg.github.com/YkeSmit1/index.json" --name "githubfeed" --username "YkeSmit1" --password "${{ secrets.GITHUB_TOKEN }}"
     - name: Restore dependencies
