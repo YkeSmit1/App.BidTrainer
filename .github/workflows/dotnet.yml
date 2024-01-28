@@ -25,6 +25,10 @@ jobs:
         source-url: https://nuget.pkg.github.com/YkeSmit1/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}        
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin' # See 'Supported distributions' for available options
+        java-version: '21'
     - name: Restore dependencies
       run: dotnet restore
     - name: NuGet Restore
