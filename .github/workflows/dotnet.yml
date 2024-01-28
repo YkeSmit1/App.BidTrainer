@@ -12,20 +12,16 @@ on:
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
       with:
           submodules: true      
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.3
-      with:
-        vs-version: '17.0'
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '2.1.x'
+        dotnet-version: '2.0.x'
         source-url: https://nuget.pkg.github.com/YkeSmit1/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}        
