@@ -59,3 +59,8 @@ jobs:
       run: msbuild App.BidTrainer\App.BidTrainer.Android\App.BidTrainer.Android.csproj /p:Configuration=Release /t:PackageForAndroid 
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
+    - uses: actions/upload-artifact@v4
+      with:
+        name: distribute
+        path: .App.BidTrainer\App.BidTrainer.Android\bin\Release\app.bidtrainer.aab
+
