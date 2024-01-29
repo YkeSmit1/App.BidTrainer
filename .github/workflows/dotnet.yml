@@ -62,5 +62,5 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: distribute
-        path: .App.BidTrainer\App.BidTrainer.Android\bin\Release\app.bidtrainer.aab
+        path: .\App.BidTrainer\App.BidTrainer.Android\bin\Release\app.bidtrainer.aab
 
