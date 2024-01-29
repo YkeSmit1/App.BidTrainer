@@ -25,6 +25,11 @@ jobs:
         source-url: https://nuget.pkg.github.com/YkeSmit1/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}        
+    - uses: JavaToolInstaller@0
+      with:
+        versionSpec: '11'
+        jdkArchitectureOption: 'x64'
+        jdkSourceOption: 'PreInstalled'
     - name: Restore dependencies
       run: dotnet restore
     - name: NuGet Restore
