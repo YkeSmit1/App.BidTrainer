@@ -22,10 +22,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Engine\Engine.Shared\Engine.Shared.vcxitems*{429c2b45-0cb2-42dd-928b-e03cc1a90dea}*SharedItemsImports = 4
-		Engine\Engine.Shared\Engine.Shared.vcxitems*{9d963917-89a4-4099-be48-0dd5a92ebae8}*SharedItemsImports = 9
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -179,5 +175,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B61E7E17-A4E4-43AF-9A43-CFF33E1AD821}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Engine\Engine.Shared\Engine.Shared.vcxitems*{429c2b45-0cb2-42dd-928b-e03cc1a90dea}*SharedItemsImports = 4
+		Engine\Engine.Shared\Engine.Shared.vcxitems*{9d963917-89a4-4099-be48-0dd5a92ebae8}*SharedItemsImports = 9
 	EndGlobalSection
 EndGlobal

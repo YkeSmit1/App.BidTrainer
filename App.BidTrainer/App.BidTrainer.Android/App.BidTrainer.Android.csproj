@@ -85,16 +85,16 @@
     <AndroidAsset Include="Assets\data\lesson7.pbn" />
     <AndroidAsset Include="Assets\data\four_card_majors.db3" />
     <AndroidAsset Include="Assets\data\lessons.json" />
-    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\x86\Debug\libEngine.so">
+    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\x86\$(Configuration)\libEngine.so">
       <Link>lib\x86\libEngine.so</Link>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\x64\Debug\libEngine.so">
+    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\x64\$(Configuration)\libEngine.so">
       <Link>lib\x86_64\libEngine.so</Link>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\ARM64\Debug\libEngine.so">
+    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\ARM64\$(Configuration)\libEngine.so">
       <Link>lib\arm64-v8a\libEngine.so</Link>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\ARM\Debug\libEngine.so">
+    <AndroidNativeLibrary Include="..\..\Engine\Engine.Android\ARM\$(Configuration)\libEngine.so">
       <Link>lib\armeabi-v7a\libEngine.so</Link>
     </AndroidNativeLibrary>
     <None Include="..\..\.editorconfig">
